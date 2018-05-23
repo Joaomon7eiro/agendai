@@ -1,0 +1,36 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label color="primary" fixed>Email:</ion-label>
+    <ion-input type="name" placeholder="Digite seu email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" fixed>Senha:</ion-label>
+    <ion-input type="password" placeholder="Digite sua senha"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" fixed>Telefone:</ion-label>
+    <ion-input type="tel" placeholder="(celular)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Termos de Uso</ion-label>
+    <ion-checkbox [(ngModel)]="useTerms"></ion-checkbox>
+  </ion-item>
+
+  <div padding>
+    <button ion-button block class="register" (click)="register();">Confirmar Conta</button>
+  </div>
+
+
+</ion-content>

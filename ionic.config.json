@@ -1,0 +1,8 @@
+{
+  "name": "app-agendai",
+  "app_id": "86f5bdcb",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

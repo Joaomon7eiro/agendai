@@ -1,12 +1,12 @@
+import { User } from './../../models/user.model';
+import { HomePage } from './../home/home';
+import { AuthProvider } from './../../providers/auth/auth';
+import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as firebase from 'firebase/app';
 
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -14,10 +14,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  signUpForm : FormGroup;
 
-  useTerms : boolean ;
+  emailRegex  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  numberRegex = /^\d+$/ ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public authProvider : AuthProvider,
+              public formBuilder : FormBuilder,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public userProvider : UserProvider)
+  {
+    this.signUpForm = this.formBuilder.group({
+      email     : ['', Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])],
+      password  : ['' , [Validators.required, Validators.minLength(8)]],
+      telephone : ['', Validators.compose([Validators.required,Validators.pattern(this.numberRegex),Validators.minLength(9)])],
+      useTerms  : [false, [Validators.requiredTrue]]
+    })
   }
 
   ionViewDidLoad() {
@@ -26,7 +39,29 @@ export class RegisterPage {
 
 
 
-  register () : void {
-    this.navCtrl.push('LoginPage');
+  onSubmit () : void {
+    //this.navCtrl.push('LoginPage');
+
+    let formUser = this.signUpForm.value
+
+    this.authProvider.createAuthUser({
+      email: formUser.email,
+      password: formUser.password
+    }).then((authUser : firebase.User ) => {
+
+      delete formUser.password
+      delete formUser.useTerms
+
+      let uuid : string = authUser.user.uid;
+
+      this.userProvider.create(formUser, uuid).then(() => {
+        console.log("usuario cadastrado com sucesso")
+        this.navCtrl.setRoot(HomePage);
+      });
+
+    });
+
+
+
   }
 }

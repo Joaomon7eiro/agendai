@@ -1,6 +1,7 @@
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the LoginPage page.
@@ -16,10 +17,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  email    : string;
-  password : string;
+  signInForm : FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  emailRegex  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  constructor(
+              public formBuilder : FormBuilder,
+              public navCtrl: NavController,
+              public navParams: NavParams)
+  {
+
+    this.signInForm = this.formBuilder.group({
+      email     : ['', Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])],
+      password  : ['' , [Validators.required, Validators.minLength(8)]]
+    })
   }
 
   ionViewDidLoad() {
@@ -32,10 +43,8 @@ export class LoginPage {
     this.navCtrl.push('RegisterPage');
   }
 
-  login () : void {
-    if(this.email == "admin" && this.password == "admin"){
-      this.navCtrl.setRoot(HomePage);
-    }
+  onSubmit () : void {
+    console.log(this.signInForm.value)
 
   }
 

@@ -1,6 +1,7 @@
+import { AuthProvider } from './../../providers/auth/auth';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
@@ -21,7 +22,12 @@ export class LoginPage {
 
   emailRegex  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+
+
   constructor(
+              public authService: AuthProvider,
+              public loadingCtrl: LoadingController,
+              public alertCtrl: AlertController,
               public formBuilder : FormBuilder,
               public navCtrl: NavController,
               public navParams: NavParams)
@@ -37,15 +43,49 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-
-
   pushRegisterPage () : void  {
     this.navCtrl.push('RegisterPage');
   }
 
+
   onSubmit () : void {
     console.log(this.signInForm.value)
 
+    let loading: Loading = this.showLoading();
+
+    this.authService.signInWithEmail(this.signInForm.value)
+      .then((isLogged: boolean) => {
+
+        if (isLogged) {
+          this.navCtrl.setRoot(HomePage);
+          loading.dismiss();
+        }
+
+      }).catch((error: any) => {
+        console.log(error);
+        loading.dismiss();
+        this.showAlert(error);
+      });
+
   }
+
+  private showLoading () : Loading {
+    let loading : Loading = this.loadingCtrl.create({
+      content : 'Logando...'
+    })
+
+    loading.present();
+
+    return loading;
+  }
+
+
+  private showAlert (message) : void {
+    this.alertCtrl.create({
+      message : message,
+      buttons : ['Ok']
+    }).present();
+  }
+
 
 }

@@ -14,5 +14,13 @@
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
 
+  <ion-list no-lines>
+    <button ion-item *ngFor="let user of users | async">
+      {{ user.email }}
+    </button>
+  </ion-list>
+
   <button ion-button secondary menuToggle>Toggle Menu</button>
+
+  <button ion-button secondary block (click)="logout();">Logout</button>
 </ion-content>

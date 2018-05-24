@@ -26,29 +26,27 @@
           <button ion-button type="submit" block class="buttonLogin" [disabled]="signInForm.invalid">Entrar</button>
         </div>
 
-        <div padding>
-          <button ion-button block class="buttonRegister" (click)="pushRegisterPage();">Cadastrar</button>
-        </div>
-
-        <div style="text-align: center;">
-          <hr width="40%" float-left>
-          <span>ou</span>
-          <hr width="40%" float-right>
-        </div>
-
-
-        <div padding class="socialMediaButtons">
-          <button ion-button block class="buttonFacebook" icon-start><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
-
-          <div style="width: 20%;"></div>
-
-          <button ion-button block class="buttonGoogle" icon-start>  <ion-icon name="logo-google"></ion-icon>Google</button>
-        </div>
-
-
       </ion-list>
 
   </form>
 
+  <div padding>
+    <button ion-button block class="buttonRegister" (click)="pushRegisterPage();">Cadastrar</button>
+  </div>
+
+  <div style="text-align: center;">
+    <hr width="40%" float-left>
+    <span>ou</span>
+    <hr width="40%" float-right>
+  </div>
+
+
+  <div padding class="socialMediaButtons">
+    <button ion-button block class="buttonFacebook" icon-start><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+
+    <div style="width: 20%;"></div>
+
+    <button ion-button block class="buttonGoogle" icon-start>  <ion-icon name="logo-google"></ion-icon>Google</button>
+  </div>
 
 </ion-content>

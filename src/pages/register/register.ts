@@ -1,4 +1,3 @@
-import { User } from './../../models/user.model';
 import { HomePage } from './../home/home';
 import { AuthProvider } from './../../providers/auth/auth';
 import { UserProvider } from './../../providers/user/user';
@@ -6,8 +5,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-
 
 @IonicPage()
 @Component({
@@ -20,6 +17,7 @@ export class RegisterPage {
 
   emailRegex  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   numberRegex = /^\d+$/ ;
+
 
 
   constructor(
@@ -60,7 +58,7 @@ export class RegisterPage {
       delete formUser.password
       delete formUser.useTerms
 
-      let uuid : string = authUser.user.uid;
+      let uuid : string = authUser.uid
 
       this.userProvider.create(formUser, uuid).then(() => {
         console.log("usuario cadastrado com sucesso")

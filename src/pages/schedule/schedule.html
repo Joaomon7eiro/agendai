@@ -16,12 +16,12 @@
   </ion-calendar>
 
 
-  <h2>{{date | date}} as {{myDate}}</h2>
+  <h2>{{date | date}} as {{time}}</h2>
 
 
   <ion-item>
     <ion-label>Horarios</ion-label>
-    <ion-datetime displayFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
+    <ion-datetime displayFormat="HH:mm" [(ngModel)]="time"></ion-datetime>
   </ion-item>
 
   <button ion-button block (click)="confirmSchedule()">Agendar</button>

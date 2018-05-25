@@ -2,13 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
-
-/**
- * Generated class for the IndependentsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Independent } from '../../models/independent.model';
 
 @IonicPage()
 @Component({
@@ -17,7 +11,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class IndependentsPage {
 
-  independents : Observable<any>;
+  independents : Observable<Independent[]>;
 
   constructor(
     public db : AngularFireDatabase,
@@ -25,18 +19,13 @@ export class IndependentsPage {
     public navParams: NavParams) {
   }
 
-  category = this.navParams.data
+  category = this.navParams.get('category')
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IndepedentsPage');
-    console.log(this.category);
-
-    this.independents = this.db.list(`/independents/${this.category.name}`).valueChanges();
-
+    this.independents = this.db.list<Independent>(`/independents/${this.category.name}`).valueChanges();
   }
-
-
   schedule (independent) : void {
-    this.navCtrl.push('SchedulePage', independent)
+    this.navCtrl.push('SchedulePage', {independent : independent })
   }
 }
+

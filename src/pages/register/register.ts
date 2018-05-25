@@ -43,8 +43,6 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
-
-
   onSubmit () : void {
     //this.navCtrl.push('LoginPage');
     let loading : Loading = this.showLoading();

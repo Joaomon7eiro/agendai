@@ -1,4 +1,4 @@
-import { HttpModule } from '@angular/http';
+import { ComponentsModule } from './../components/components.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -16,6 +16,8 @@ import { UserProvider } from '../providers/user/user';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AuthProvider } from '../providers/auth/auth';
+import { ScheduleProvider } from '../providers/schedule/schedule';
+import { IndependentProvider } from '../providers/independent/independent';
 
 
 const firebaseAppConfig : FirebaseAppConfig = {
@@ -38,7 +40,7 @@ const firebaseAppConfig : FirebaseAppConfig = {
     AngularFireDatabaseModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +53,9 @@ const firebaseAppConfig : FirebaseAppConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
-    AuthProvider
+    AuthProvider,
+    ScheduleProvider,
+    IndependentProvider
   ]
 })
 export class AppModule {}

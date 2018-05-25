@@ -31,9 +31,8 @@ export class CategoriesPage {
     this.categories = this.db.list('/categories').valueChanges();
   }
 
-
   showIndependent (category) : void {
-    this.navCtrl.push('IndependentsPage', category)
+    this.navCtrl.push('IndependentsPage', {category : category})
   }
 
 }

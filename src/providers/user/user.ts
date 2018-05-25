@@ -5,8 +5,6 @@ import { AngularFireDatabase, AngularFireObject  } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { BaseProvider } from '../base/base';
 import * as firebase from 'firebase/app';
-import 'firebase/storage';
-import { map } from 'rxjs/operators/map';
 
 @Injectable()
 export class UserProvider extends BaseProvider {
@@ -20,6 +18,15 @@ export class UserProvider extends BaseProvider {
   ){
     super();
     this.users = this.db.list<User>('/users').valueChanges();
+    this.listenAuthState()
+  }
+
+  private listenAuthState(): void {
+    this.afAuth.authState.subscribe((authUser: firebase.User) => {
+        if (authUser) {
+          this.currentUser = this.db.object(`/users/${authUser.uid}`);
+        }
+      });
   }
 
   create(user: User, uuid : string ): Promise<void> {

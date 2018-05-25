@@ -47,6 +47,9 @@ export class LoginPage {
     this.navCtrl.push('RegisterPage');
   }
 
+  pushHomePage () : void {
+    this.navCtrl.setRoot(HomePage);
+  }
 
   onSubmit () : void {
     console.log(this.signInForm.value)

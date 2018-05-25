@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -15,11 +16,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SchedulePage {
 
+  myDate : string
+
+  date: string;
+  type: 'string';
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SchedulePage');
+  }
+
+
+  onChange($event) {
+    console.log($event);
+  }
+
+
+  confirmSchedule () : void {
+    this.navCtrl.setRoot(HomePage)
   }
 
 }

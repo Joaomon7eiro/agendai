@@ -7,6 +7,8 @@ import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingC
 import { Independent } from '../../models/independent.model';
 import { User } from '../../models/user.model';
 import 'rxjs/add/operator/first';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
 
 @IonicPage()
@@ -23,11 +25,18 @@ export class SchedulePage {
 
   hourValues : string[]
 
-  minuteValues : string[] = ['0']
-
   independent : Independent
 
+  array :string[]
+
+  hoursUnavailable : Observable<any>
+
+  unavailableArray : any[] = []
+
+  hoursAndMinutes : string[]
+
   constructor(
+    public db : AngularFireDatabase,
     public alertCtrl : AlertController,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,29 +48,51 @@ export class SchedulePage {
   }
 
   ionViewWillEnter(){
+
+  }
+
+  onSelect($event) {
+    console.log($event)
+    this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.date.format('l').toString().replace(/\//g, '-')}`).valueChanges();
+
     this.hourValues = [`${this.independent.startTime}`]
     for(let i = this.independent.startTime + 1; i <= this.independent.endTime; i++ ){
       this.hourValues.push(`${i}`)
     }
 
-    console.log(this.hourValues)
-    console.log(this.independent.duration)
+    this.hoursAndMinutes= [`${this.independent.startTime}:00`]
 
-    //if (this.independent.duration <= 30){
 
-      for(let i = this.independent.duration ; i <= 60; i += this.independent.duration ){
-        this.minuteValues.push(`${i}`)
+    this.hoursUnavailable.subscribe(value => {
+      if(value.length != 0){
+        this.unavailableArray = value
+      }else{
+        this.unavailableArray = []
       }
-      console.log(this.minuteValues)
+    })
 
-    //}
+    for(let i = this.independent.duration, j = this.hourValues.length ,
+        k = 1, l = this.independent.startTime; k < j ; i += this.independent.duration ){
+      if(i>=60){
+        i -= 60;
+        l++;
+        k++;
+      }
+
+      if(this.unavailableArray.length != 0){
+        if(this.unavailableArray[0].time != `${l}:0${i}` && this.unavailableArray[0].time != `${l}:${i}` && this.unavailableArray[1].time != `${l}:0${i}` && this.unavailableArray[1].time != `${l}:${i}` ){
+          console.log(`hora agr ${l}:${i}`)
+          i == 0 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
+        }
+      }else{
+        i == 0 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
+      }
+
+    }
 
 
 
-  }
-  onChange($event) {
-    console.log($event);
-  }
+}
 
   confirmSchedule () : void {
 
@@ -71,10 +102,6 @@ export class SchedulePage {
 
       let scheduleForm = new Schedule(this.independent.name, this.date.format('l') , this.date.format('dddd') , this.time, this.independent.imageSrc)
 
-      console.log(scheduleForm);
-      console.log(this.independent.id);
-      console.log(currentUser.id);
-
       this.scheduleProvider.create(scheduleForm, currentUser.id , this.independent.id ).then(() => {
         console.log("agendamento criado")
         loading.dismiss()
@@ -83,9 +110,11 @@ export class SchedulePage {
         console.log(error);
         loading.dismiss();
         this.showAlert(error);
-      });;
-
-
+      });
+      delete scheduleForm.name
+      delete scheduleForm.day
+      delete scheduleForm.photo
+      this.scheduleProvider.unavailableHour(scheduleForm , this.independent.id)
     });
 
   }

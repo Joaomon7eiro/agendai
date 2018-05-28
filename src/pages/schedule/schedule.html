@@ -10,18 +10,20 @@
 <ion-content padding>
 
   <ion-calendar [(ngModel)]="date"
-    (onChange)="onChange($event)"
+    (onSelect)="onSelect($event)"
     [type]="type"
     [format]="'YYYY-MM-DD'">
   </ion-calendar>
 
-
-  <h2>{{date | date}} as {{time}}</h2>
-
+  <ion-item *ngFor="let hourUnavailable of hoursUnavailable | async">
+      <button ion-button block >{{hourUnavailable.time}}</button>
+  </ion-item>
 
   <ion-item>
-    <ion-label>Horarios</ion-label>
-    <ion-datetime displayFormat="HH:mm" [hourValues]="hourValues" [minuteValues]="minuteValues" [(ngModel)]="time"></ion-datetime>
+    <ion-label>Horários Disponiveis</ion-label>
+    <ion-select  [(ngModel)]="time">
+      <ion-option *ngFor="let hourAndMinute of hoursAndMinutes" [value]="hourAndMinute">{{hourAndMinute}}</ion-option>
+    </ion-select>
   </ion-item>
 
   <button ion-button block (click)="confirmSchedule()">Agendar</button>

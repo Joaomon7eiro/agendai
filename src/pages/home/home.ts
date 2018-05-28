@@ -35,7 +35,6 @@ export class HomePage {
     this.users = this.userProvider.users;
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
-
       this.schedules = this.db.list<Schedule>(`/schedules/${currentUser.id}`).valueChanges();
     });
   }

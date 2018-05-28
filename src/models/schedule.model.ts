@@ -1,10 +1,10 @@
 export class Schedule {
 
-  public $key: string
+  public id: string
 
   constructor(
     public name : string,
-    public date : string,
+    public date : Date,
     public day : string,
     public time : string,
     public photo: string

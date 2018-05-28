@@ -1,6 +1,6 @@
 export class User {
 
-    public $key: string
+    public id: string
 
     constructor(
       public name : string,

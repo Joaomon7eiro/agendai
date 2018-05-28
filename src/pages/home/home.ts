@@ -1,3 +1,4 @@
+import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
@@ -14,7 +15,7 @@ export class HomePage {
 
   users: Observable<User[]>;
 
-  schedules: Observable<any>;
+  schedules: Observable<Schedule[]>;
 
   title: string = 'Meus Agendamentos'
   constructor(
@@ -23,7 +24,7 @@ export class HomePage {
               public authProvider: AuthProvider,
               public navCtrl: NavController)
   {
-    this.schedules = this.db.list(`/schedules/sNT1xGv7aARPRfcIjVgtH50JBEf1`).valueChanges();
+
   }
 
   ionViewCanEnter() : Promise<boolean>{
@@ -32,6 +33,11 @@ export class HomePage {
 
   ionViewDidLoad(){
     this.users = this.userProvider.users;
+
+    this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
+
+      this.schedules = this.db.list<Schedule>(`/schedules/${currentUser.id}`).valueChanges();
+    });
   }
 
   logout () : void {

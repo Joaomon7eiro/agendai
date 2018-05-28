@@ -5,12 +5,6 @@
 <ion-content padding>
   <h3>Meus Agendamentos</h3>
 
-  <ion-list no-lines>
-    <button ion-item *ngFor="let user of users | async">
-      {{ user.email }}
-    </button>
-  </ion-list>
-
   <ion-card *ngFor="let schedule of schedules | async">
 
     <ion-item>

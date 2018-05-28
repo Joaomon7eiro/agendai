@@ -17,7 +17,7 @@ export class UserProvider extends BaseProvider {
     public db : AngularFireDatabase
   ){
     super();
-    this.users = this.db.list<User>('/users').valueChanges();
+    //this.users = this.db.list<User>('/users').valueChanges();
     this.listenAuthState()
   }
 
@@ -30,6 +30,7 @@ export class UserProvider extends BaseProvider {
   }
 
   create(user: User, uuid : string ): Promise<void> {
+    user.id = uuid;
     return this.db.object(`/users/${uuid}`).set(user).catch(this.handlePromiseError);
   }
 

@@ -22,10 +22,13 @@ export class IndependentsPage {
   category = this.navParams.get('category')
 
   ionViewDidLoad() {
-    this.independents = this.db.list<Independent>(`/independents/${this.category.name}`).valueChanges();
+
+    this.independents = this.db.list<Independent>(`/independents/${this.category.id}`).valueChanges();
+
   }
+
   schedule (independent) : void {
-    this.navCtrl.push('SchedulePage', {independent : independent })
+    this.navCtrl.push('SchedulePage', { independent : independent })
   }
 }
 

@@ -21,9 +21,11 @@ export class SchedulePage {
 
   type: 'string';
 
-  independent : Independent
+  hourValues : string[]
 
-  currentUser : User
+  minuteValues : string[] = ['0']
+
+  independent : Independent
 
   constructor(
     public alertCtrl : AlertController,
@@ -36,10 +38,27 @@ export class SchedulePage {
       this.independent = this.navParams.get('independent')
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SchedulePage');
-  }
+  ionViewWillEnter(){
+    this.hourValues = [`${this.independent.startTime}`]
+    for(let i = this.independent.startTime + 1; i <= this.independent.endTime; i++ ){
+      this.hourValues.push(`${i}`)
+    }
 
+    console.log(this.hourValues)
+    console.log(this.independent.duration)
+
+    //if (this.independent.duration <= 30){
+
+      for(let i = this.independent.duration ; i <= 60; i += this.independent.duration ){
+        this.minuteValues.push(`${i}`)
+      }
+      console.log(this.minuteValues)
+
+    //}
+
+
+
+  }
   onChange($event) {
     console.log($event);
   }
@@ -48,21 +67,26 @@ export class SchedulePage {
 
     let loading : Loading = this.showLoading();
 
-    let scheduleForm = new Schedule(this.independent.name, this.date.calendar(), 'segunda-feira' , this.time, this.independent.imageSrc)
+    this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
 
-    console.log(scheduleForm);
+      let scheduleForm = new Schedule(this.independent.name, this.date.format('l') , this.date.format('dddd') , this.time, this.independent.imageSrc)
 
-    this.scheduleProvider.create(scheduleForm, 'sNT1xGv7aARPRfcIjVgtH50JBEf1' , this.independent.$key ).then(() => {
-      console.log("agendamento criado")
-      loading.dismiss()
-      this.navCtrl.setRoot(HomePage);
-    }).catch(( error : any) =>{
-      console.log(error);
-      loading.dismiss();
-      this.showAlert(error);
-    });;
+      console.log(scheduleForm);
+      console.log(this.independent.id);
+      console.log(currentUser.id);
+
+      this.scheduleProvider.create(scheduleForm, currentUser.id , this.independent.id ).then(() => {
+        console.log("agendamento criado")
+        loading.dismiss()
+        this.navCtrl.setRoot(HomePage);
+      }).catch(( error : any) =>{
+        console.log(error);
+        loading.dismiss();
+        this.showAlert(error);
+      });;
 
 
+    });
 
   }
 

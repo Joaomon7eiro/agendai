@@ -1,19 +1,17 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>Categorias</ion-title>
-    </ion-navbar>
-  </ion-header>
-
+  <custom-header [title]="'Categorias'"></custom-header>
+</ion-header>
 
 <ion-content padding>
 
     <ion-list>
-        <button ion-item *ngFor="let category of categories | async"  (click)="showIndependent(category);">
-          {{ category.name }}
-        </button>
-      </ion-list>
+      <ion-item *ngFor="let category of categories | async" >
+          <button ion-button clear  (click)="showIndependent(category);"  icon-left>
+            <ion-icon [name]="category.icon"></ion-icon>
+            <div>{{ category.name }}</div>
+          </button>
+      </ion-item>
+    </ion-list>
 
 </ion-content>
+

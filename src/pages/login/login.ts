@@ -1,3 +1,4 @@
+import { TabsPage } from './../tabs/tabs';
 import { AuthProvider } from './../../providers/auth/auth';
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
@@ -48,7 +49,7 @@ export class LoginPage {
   }
 
   pushHomePage () : void {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(TabsPage);
   }
 
   onSubmit () : void {

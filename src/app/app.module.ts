@@ -1,3 +1,4 @@
+import { CategoriesPage } from './../pages/categories/categories';
 import { ComponentsModule } from './../components/components.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule , LOCALE_ID } from '@angular/core';
@@ -20,6 +21,8 @@ import { IndependentProvider } from '../providers/independent/independent';
 
 import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { TabsPage } from '../pages/tabs/tabs';
+
 
 
 const firebaseAppConfig : FirebaseAppConfig = {
@@ -35,7 +38,9 @@ registerLocaleData(locale);
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    TabsPage,
+    CategoriesPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseAppConfig),
@@ -48,7 +53,9 @@ registerLocaleData(locale);
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    TabsPage,
+    CategoriesPage
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt' },
@@ -59,7 +66,6 @@ registerLocaleData(locale);
     AuthProvider,
     ScheduleProvider,
     IndependentProvider,
-
   ]
 })
 export class AppModule {}

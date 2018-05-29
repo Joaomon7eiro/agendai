@@ -17,6 +17,8 @@ export class HomePage {
 
   schedules: Observable<Schedule[]>;
 
+  currentUser : User
+
   title: string = 'Meus Agendamentos'
   constructor(
               public db : AngularFireDatabase,
@@ -37,6 +39,8 @@ export class HomePage {
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
       this.schedules = this.db.list<Schedule>(`/schedules/${currentUser.id}`).valueChanges();
     });
+
+
   }
 
   logout () : void {

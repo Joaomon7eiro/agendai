@@ -1,3 +1,4 @@
+import { TabsPage } from './../tabs/tabs';
 import { FormGroup , FormBuilder, Validators } from '@angular/forms';
 import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
@@ -10,8 +11,8 @@ import { User } from '../../models/user.model';
 import 'rxjs/add/operator/first';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
-import { SIGBREAK } from 'constants';
-import { SIGBREAK } from 'constants';
+import { CategoriesPage } from '../categories/categories';
+
 
 
 @IonicPage()
@@ -114,13 +115,13 @@ export class SchedulePage {
       }
 
     } , 200)
+  }
 
-
-
-}
+  cancelSchedule () : void {
+    this.navCtrl.setRoot(CategoriesPage);
+  }
 
   confirmSchedule () : void {
-
     let loading : Loading = this.showLoading();
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
@@ -130,7 +131,7 @@ export class SchedulePage {
       this.scheduleProvider.create(scheduleForm, currentUser.id , this.independent.id ).then(() => {
         console.log("agendamento criado")
         loading.dismiss()
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(CategoriesPage);
       }).catch(( error : any) =>{
         console.log(error);
         loading.dismiss();

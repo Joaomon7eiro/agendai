@@ -1,9 +1,13 @@
+import { UserProvider } from './../providers/user/user';
+import { AuthProvider } from './../providers/auth/auth';
+import { User } from './../models/user.model';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { CategoriesPage } from '../pages/categories/categories';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,15 +17,23 @@ export class MyApp {
 
   rootPage: any = 'LoginPage';
 
+  currentUser: User;
+
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public authProvider:AuthProvider,
+    public userProvider :UserProvider
+    ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Meus Agendamentos', component: HomePage },
-      { title: 'Categorias', component: 'CategoriesPage' }
+      { title: 'Categorias', component: CategoriesPage }
     ];
 
   }

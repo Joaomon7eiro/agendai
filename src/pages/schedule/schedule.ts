@@ -1,3 +1,4 @@
+import { FormGroup , FormBuilder, Validators } from '@angular/forms';
 import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
 import { ScheduleProvider } from './../../providers/schedule/schedule';
@@ -9,6 +10,8 @@ import { User } from '../../models/user.model';
 import 'rxjs/add/operator/first';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
+import { SIGBREAK } from 'constants';
+import { SIGBREAK } from 'constants';
 
 
 @IonicPage()
@@ -19,9 +22,9 @@ import { Observable } from 'rxjs';
 export class SchedulePage {
 
   time : string
-  date : Date;
+  date : string;
 
-  type: 'string';
+  type: 'moment';
 
   hourValues : string[]
 
@@ -35,6 +38,8 @@ export class SchedulePage {
 
   hoursAndMinutes : string[]
 
+  scheduleForm : FormGroup
+
   constructor(
     public db : AngularFireDatabase,
     public alertCtrl : AlertController,
@@ -42,18 +47,26 @@ export class SchedulePage {
     public navParams: NavParams,
     public scheduleProvider : ScheduleProvider,
     public loadingCtrl : LoadingController,
-    public userProvider : UserProvider)
+    public userProvider : UserProvider,
+    public formBuilder : FormBuilder)
   {
       this.independent = this.navParams.get('independent')
+
+      this.scheduleForm = this.formBuilder.group({
+        date   : ['',  [Validators.required] ],
+        time   : ['',  [Validators.required] ]
+      })
   }
 
   ionViewWillEnter(){
 
   }
 
-  onSelect($event) {
+  onChange($event) {
     console.log($event)
-    this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.date.format('l').toString().replace(/\//g, '-')}`).valueChanges();
+    console.log(this.date.format('l'))
+    this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.date.format('l').replace(/\//g, '-')}`).valueChanges();
+    console.log(this.hoursUnavailable)
 
     this.hourValues = [`${this.independent.startTime}`]
     for(let i = this.independent.startTime + 1; i <= this.independent.endTime; i++ ){
@@ -62,33 +75,45 @@ export class SchedulePage {
 
     this.hoursAndMinutes= [`${this.independent.startTime}:00`]
 
-
-    this.hoursUnavailable.subscribe(value => {
-      if(value.length != 0){
-        this.unavailableArray = value
-      }else{
-        this.unavailableArray = []
+    this.hoursUnavailable.subscribe(
+      value => {
+        console.log(value)
+        if(value.length != 0){
+          this.unavailableArray = value
+        }else{
+          this.unavailableArray = []
+        }
       }
-    })
+    );
+    setTimeout(() :void => {
+      console.log(this.unavailableArray)
 
-    for(let i = this.independent.duration, j = this.hourValues.length ,
-        k = 1, l = this.independent.startTime; k < j ; i += this.independent.duration ){
-      if(i>=60){
-        i -= 60;
-        l++;
-        k++;
-      }
+      for(let i = this.independent.duration, j = this.hourValues.length ,
+          k = 1, l = this.independent.startTime; k < j ; i += this.independent.duration ){
+        if(i>=60){
+          i -= 60;
+          l++;
+          k++;
+        }
 
-      if(this.unavailableArray.length != 0){
-        if(this.unavailableArray[0].time != `${l}:0${i}` && this.unavailableArray[0].time != `${l}:${i}` && this.unavailableArray[1].time != `${l}:0${i}` && this.unavailableArray[1].time != `${l}:${i}` ){
-          console.log(`hora agr ${l}:${i}`)
+        if(this.unavailableArray.length != 0){
+          let aux = 0;
+          for(let m = 0; m < this.unavailableArray.length; m++){
+            if( this.unavailableArray[m].time == `${l}:0${i}` || this.unavailableArray[m].time == `${l}:${i}`){
+              aux = 1;
+              break;
+            }
+          }
+          if (aux != 1){
+            i == 0 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
+          }
+        }else{
           i == 0 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
         }
-      }else{
-        i == 0 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
+
       }
 
-    }
+    } , 200)
 
 
 

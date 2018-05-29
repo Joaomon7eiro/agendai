@@ -18,7 +18,7 @@ export class ScheduleProvider extends BaseProvider {
   }
 
   unavailableHour(schedule: Schedule,independentId : string): Promise<void> {
-    return this.db.object<Schedule>(`/hoursUnavailable/${independentId}/${(schedule.date).toString().replace(/\//g, '-')}/${schedule.time}`).set(schedule).catch(this.handlePromiseError);
+    return this.db.object<Schedule>(`/hoursUnavailable/${independentId}/${(schedule.date).replace(/\//g, '-')}/${schedule.time}`).set(schedule).catch(this.handlePromiseError);
   }
 
 

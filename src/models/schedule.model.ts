@@ -4,7 +4,7 @@ export class Schedule {
 
   constructor(
     public name : string,
-    public date : Date,
+    public date : string,
     public day : string,
     public time : string,
     public photo: string

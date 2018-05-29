@@ -9,23 +9,18 @@
 
 <ion-content padding>
 
-  <ion-calendar [(ngModel)]="date"
-    (onSelect)="onSelect($event)"
-    [type]="type"
-    [format]="'YYYY-MM-DD'">
-  </ion-calendar>
+  <form [formGroup]="scheduleForm" (ngSubmit)="confirmSchedule(); $event.preventDefault()">
+    <ion-calendar [(ngModel)]="date" (onChange)="onChange($event)" [type]="type" [format]="'YYYY-MM-DD'"
+    formControlName="date">
+    </ion-calendar>
 
-  <ion-item *ngFor="let hourUnavailable of hoursUnavailable | async">
-      <button ion-button block >{{hourUnavailable.time}}</button>
-  </ion-item>
+    <ion-item>
+      <ion-label>Horários Disponiveis</ion-label>
+      <ion-select  [(ngModel)]="time" formControlName="time">
+        <ion-option *ngFor="let hourAndMinute of hoursAndMinutes" [value]="hourAndMinute">{{hourAndMinute}}</ion-option>
+      </ion-select>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Horários Disponiveis</ion-label>
-    <ion-select  [(ngModel)]="time">
-      <ion-option *ngFor="let hourAndMinute of hoursAndMinutes" [value]="hourAndMinute">{{hourAndMinute}}</ion-option>
-    </ion-select>
-  </ion-item>
-
-  <button ion-button block (click)="confirmSchedule()">Agendar</button>
-
+    <button ion-button block  type="submit"  [disabled]="scheduleForm.invalid">Agendar</button>
+  </form>
 </ion-content>

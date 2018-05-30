@@ -66,7 +66,7 @@ export class SchedulePage {
   }
 
   onChange($event) {
-    this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.date.format('l').replace(/\//g, '-')}`).valueChanges();
+    this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.date/*.format('l').replace(/\//g, '-')*/}`).valueChanges();
 
     this.hourValues = [`${this.independent.startTime}`]
     for(let i = this.independent.startTime + 1; i <= this.independent.endTime; i++ ){
@@ -125,7 +125,7 @@ export class SchedulePage {
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
 
-      let scheduleForm = new Schedule(this.independent.name, this.date.format('l') , this.date.format('dddd') , this.time, this.independent.imageSrc)
+      let scheduleForm = new Schedule(this.independent.name, this.date/*.format('l')*/ , this.date/*.format('dddd') */, this.time, this.independent.imageSrc)
 
       this.scheduleProvider.create(scheduleForm, currentUser.id , this.independent.id ).then(() => {
         console.log("agendamento criado")

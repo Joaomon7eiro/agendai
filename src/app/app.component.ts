@@ -1,3 +1,4 @@
+import { TabsPage } from './../pages/tabs/tabs';
 import { UserProvider } from './../providers/user/user';
 import { AuthProvider } from './../providers/auth/auth';
 import { User } from './../models/user.model';
@@ -6,8 +7,9 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
 import { CategoriesPage } from '../pages/categories/categories';
+
+import * as firebase from 'firebase/app';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,8 +21,6 @@ export class MyApp {
 
   currentUser: User;
 
-  pages: Array<{title: string, component: any}>;
-
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
@@ -28,15 +28,28 @@ export class MyApp {
     public authProvider:AuthProvider,
     public userProvider :UserProvider
     ) {
+
+    authProvider.afAuth.authState.subscribe((authUser: firebase.User) => {
+
+      if (authUser) {
+
+        this.rootPage = TabsPage;
+
+        userProvider.currentUser.valueChanges().subscribe((user: User) => {
+          this.currentUser = user;
+        });
+
+      }
+
+    });
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Meus Agendamentos', component: HomePage },
-      { title: 'Categorias', component: CategoriesPage }
-    ];
 
   }
+
+
+
+
 
   initializeApp() {
     this.platform.ready().then(() => {

@@ -22,6 +22,7 @@ import { IndependentProvider } from '../providers/independent/independent';
 import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { TabsPage } from '../pages/tabs/tabs';
+import { HttpModule } from '@angular/http';
 
 
 
@@ -48,7 +49,8 @@ registerLocaleData(locale);
     AngularFireDatabaseModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    ComponentsModule
+    ComponentsModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

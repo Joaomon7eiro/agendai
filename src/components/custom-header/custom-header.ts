@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { AlertController, App, MenuController } from 'ionic-angular';
+import { AlertController, App, MenuController} from 'ionic-angular';
 
-import { User } from './../../models/user.model';
 import { BaseComponent } from '../base/base';
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -19,8 +18,9 @@ export class CustomHeaderComponent extends BaseComponent {
     public authProvider: AuthProvider,
     public app: App,
     public menuCtrl: MenuController
+
   ) {
-    super(alertCtrl, authProvider, app, menuCtrl);
+    super(alertCtrl, authProvider, app, menuCtrl)
   }
 
 }

@@ -2,7 +2,7 @@ import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import { User } from '../../models/user.model';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -24,12 +24,13 @@ export class HomePage {
               public db : AngularFireDatabase,
               public userProvider : UserProvider,
               public authProvider: AuthProvider,
-              public navCtrl: NavController)
+              public navCtrl: NavController,
+              public menuCtrl: MenuController)
   {
 
   }
 
-  ionViewCanEnter() : Promise<boolean>{
+  ionViewCanEnter () : Promise<boolean>{
     return this.authProvider.authenticated;
   }
 
@@ -40,12 +41,7 @@ export class HomePage {
       this.schedules = this.db.list<Schedule>(`/schedules/${currentUser.id}`).valueChanges();
     });
 
-
-  }
-
-  logout () : void {
-    this.authProvider.logout();
-    this.navCtrl.setRoot('LoginPage');
+    this.menuCtrl.enable(true)
   }
 
 }

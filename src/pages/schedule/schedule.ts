@@ -1,9 +1,7 @@
-import { TabsPage } from './../tabs/tabs';
 import { FormGroup , FormBuilder, Validators } from '@angular/forms';
 import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
 import { ScheduleProvider } from './../../providers/schedule/schedule';
-import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
 import { Independent } from '../../models/independent.model';
@@ -12,6 +10,8 @@ import 'rxjs/add/operator/first';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { CategoriesPage } from '../categories/categories';
+
+import { Subscription } from "rxjs/Subscription";
 
 
 
@@ -41,6 +41,8 @@ export class SchedulePage {
 
   scheduleForm : FormGroup
 
+  unSub: Subscription
+
   constructor(
     public db : AngularFireDatabase,
     public alertCtrl : AlertController,
@@ -64,10 +66,7 @@ export class SchedulePage {
   }
 
   onChange($event) {
-    console.log($event)
-    console.log(this.date.format('l'))
     this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.date.format('l').replace(/\//g, '-')}`).valueChanges();
-    console.log(this.hoursUnavailable)
 
     this.hourValues = [`${this.independent.startTime}`]
     for(let i = this.independent.startTime + 1; i <= this.independent.endTime; i++ ){
@@ -76,9 +75,8 @@ export class SchedulePage {
 
     this.hoursAndMinutes= [`${this.independent.startTime}:00`]
 
-    this.hoursUnavailable.subscribe(
+    this.unSub = this.hoursUnavailable.subscribe(
       value => {
-        console.log(value)
         if(value.length != 0){
           this.unavailableArray = value
         }else{
@@ -86,9 +84,10 @@ export class SchedulePage {
         }
       }
     );
-    setTimeout(() :void => {
-      console.log(this.unavailableArray)
 
+    this.unSub.unsubscribe()
+
+    setTimeout(() :void => {
       for(let i = this.independent.duration, j = this.hourValues.length ,
           k = 1, l = this.independent.startTime; k < j ; i += this.independent.duration ){
         if(i>=60){

@@ -5,6 +5,9 @@ import { AngularFireDatabase, AngularFireObject  } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { BaseProvider } from '../base/base';
 import * as firebase from 'firebase/app';
+import { FirebaseApp } from "angularfire2";
+import { Http } from '@angular/http';
+import 'firebase/storage';
 
 @Injectable()
 export class UserProvider extends BaseProvider {
@@ -14,7 +17,9 @@ export class UserProvider extends BaseProvider {
 
   constructor(
     public afAuth :AngularFireAuth,
-    public db : AngularFireDatabase
+    public firebaseApp: FirebaseApp,
+    public db : AngularFireDatabase,
+    public http: Http
   ){
     super();
     //this.users = this.db.list<User>('/users').valueChanges();
@@ -32,6 +37,14 @@ export class UserProvider extends BaseProvider {
   create(user: User, uuid : string ): Promise<void> {
     user.id = uuid;
     return this.db.object(`/users/${uuid}`).set(user).catch(this.handlePromiseError);
+  }
+
+  edit(user: {name: string, telephone: string, photo: string}): Promise<void> {
+    return this.currentUser.update(user).catch(this.handlePromiseError);
+  }
+
+  uploadPhoto(file: File, userId: string): firebase.storage.UploadTask {
+    return this.firebaseApp.storage().ref().child(`/users/${userId}`).put(file);
   }
 
   userExists(email: string): Observable<boolean> {

@@ -1,0 +1,50 @@
+
+<ion-header>
+
+  <custom-header [title]="Perfil"></custom-header>
+</ion-header>
+
+
+<ion-content padding>
+  <user-info [user]="currentUser"></user-info>
+
+  <button ion-button block (click)="canEdit = !canEdit">Editar Perfil</button>
+
+
+  <form (ngSubmit)="onSubmit($event)" *ngIf="canEdit" #profileForm="ngForm">
+
+      <ion-item>
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-input
+          type="text"
+          placeholder="Nome"
+          name="name"
+          [(ngModel)]="currentUser.name"
+          required
+          minlenght="3">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="phone-portrait" item-start></ion-icon>
+        <ion-input
+          type="tel"
+          placeholder="Telefone"
+          name="telephone"
+          [(ngModel)]="currentUser.telephone"
+          required
+          minlenght="9">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="image" item-start></ion-icon>
+        <input type="file"  (change)="onPhoto($event)">
+      </ion-item>
+
+
+      <br>
+      <button ion-button block type="submit" [disabled]="profileForm.form.invalid">Save</button>
+
+    </form>
+</ion-content>

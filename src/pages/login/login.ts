@@ -1,16 +1,8 @@
 import { TabsPage } from './../tabs/tabs';
 import { AuthProvider } from './../../providers/auth/auth';
-import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -23,10 +15,8 @@ export class LoginPage {
 
   emailRegex  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-
-
   constructor(
-              public authService: AuthProvider,
+              public authProvider: AuthProvider,
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController,
               public formBuilder : FormBuilder,
@@ -48,20 +38,14 @@ export class LoginPage {
     this.navCtrl.push('RegisterPage');
   }
 
-  pushHomePage () : void {
-    this.navCtrl.setRoot(TabsPage);
-  }
-
   onSubmit () : void {
-    console.log(this.signInForm.value)
-
     let loading: Loading = this.showLoading();
 
-    this.authService.signInWithEmail(this.signInForm.value)
+    this.authProvider.signInWithEmail(this.signInForm.value)
       .then((isLogged: boolean) => {
 
         if (isLogged) {
-          this.navCtrl.setRoot(HomePage);
+          this.navCtrl.setRoot(TabsPage);
           loading.dismiss();
         }
 

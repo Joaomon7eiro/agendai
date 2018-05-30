@@ -15,10 +15,11 @@ export abstract class BaseComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.navCtrl = this.app.getActiveNavs()[0];
+      this.navCtrl = this.app.getRootNav()
     }
 
     onLogout(): void {
+
         this.alertCtrl.create({
             message: 'Deseja sair?',
             buttons: [
@@ -27,8 +28,8 @@ export abstract class BaseComponent implements OnInit {
                     handler: () => {
                         this.authProvider.logout()
                             .then(() => {
-                                this.navCtrl.setRoot('LoginPage');
-                                this.menuCtrl.enable(false, 'user-menu');
+                              this.navCtrl.setRoot('LoginPage');
+                              this.menuCtrl.enable(false);
                             });
                     }
                 },

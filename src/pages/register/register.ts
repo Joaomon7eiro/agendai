@@ -1,4 +1,4 @@
-import { HomePage } from './../home/home';
+import { TabsPage } from './../tabs/tabs';
 import { AuthProvider } from './../../providers/auth/auth';
 import { UserProvider } from './../../providers/user/user';
 import { Component } from '@angular/core';
@@ -35,7 +35,8 @@ export class RegisterPage {
       email     : ['', Validators.compose([Validators.required,Validators.pattern(this.emailRegex)])],
       password  : ['' , [Validators.required, Validators.minLength(8)]],
       telephone : ['', Validators.compose([Validators.required,Validators.pattern(this.numberRegex),Validators.minLength(9)])],
-      useTerms  : [false, [Validators.requiredTrue]]
+      useTerms  : [false, [Validators.requiredTrue]],
+      name      : ['' , [Validators.required, Validators.minLength(4)]],
     })
   }
 
@@ -61,7 +62,7 @@ export class RegisterPage {
       this.userProvider.create(formUser, uuid).then(() => {
         console.log("usuario cadastrado com sucesso")
         loading.dismiss()
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(TabsPage);
       }).catch(( error : any) =>{
         console.log(error);
         loading.dismiss();

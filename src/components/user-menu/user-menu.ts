@@ -1,15 +1,9 @@
 import { User } from './../../models/user.model';
 import { Component, Input} from '@angular/core';
 import { BaseComponent } from '../base/base';
-import { AlertController, App, MenuController } from 'ionic-angular';
+import { AlertController, App, MenuController} from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 
-/**
- * Generated class for the UserMenuComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'user-menu',
   templateUrl: 'user-menu.html'
@@ -28,6 +22,6 @@ export class UserMenuComponent extends BaseComponent {
   }
 
   pushProfile () : void {
-    console.log("perfil edit ?");
+    this.navCtrl.push('UserProfilePage')
   }
 }

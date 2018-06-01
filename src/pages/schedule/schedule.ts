@@ -97,7 +97,7 @@ export class SchedulePage {
     )
 
     setTimeout(() :void => {
-      this.showAlert(this.unavailableArray);
+
       this.unSub.unsubscribe()
 
       for(let i = 0, j = this.hourValues.length ,
@@ -115,6 +115,7 @@ export class SchedulePage {
           for(let m = 0; m < this.unavailableArray.length; m++){
             if( this.unavailableArray[m].time == `${l}:0${i}` || this.unavailableArray[m].time == `${l}:${i}`){
               console.log(this.unavailableArray[m].time)
+              this.showAlert(this.unavailableArray[m].time)
               aux = 1;
               break;
             }

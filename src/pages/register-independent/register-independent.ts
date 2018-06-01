@@ -28,6 +28,8 @@ export class RegisterIndependentPage {
 
   uploadProgress:number
 
+  numberRegex = /^\d+$/ ;
+
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      public formBuilder : FormBuilder,
@@ -46,7 +48,7 @@ export class RegisterIndependentPage {
         endTime    : ['' , Validators.required],
         duration   : ['' , Validators.required],
         photo      : [''],
-        telephone  : ['' , Validators.required]
+        telephone  : ['', Validators.compose([Validators.required,Validators.pattern(this.numberRegex),Validators.minLength(9)])]
       })
 
       console.log(this.signIndependentForm.value)
@@ -72,7 +74,11 @@ export class RegisterIndependentPage {
       loading.dismiss()
       return;
     }
-
+    if(formUser.duration > 60){
+      this.showAlert('Duracao nao pode ser acima de 60');
+      loading.dismiss()
+      return;
+    }
     if (this.filePhoto) {
 
       let uploadTask = this.userProvider.uploadPhotoIndependent(this.filePhoto, this.currentUser.id, formUser.category);

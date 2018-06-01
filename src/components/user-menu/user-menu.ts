@@ -12,7 +12,7 @@ export class UserMenuComponent extends BaseComponent {
 
   @Input('user') currentUser: User
 
-  hideIndependent : boolean = true
+  hideIndependent : boolean = false
 
   constructor(
     public alertCtrl: AlertController,
@@ -29,5 +29,9 @@ export class UserMenuComponent extends BaseComponent {
 
   onBecameIndependent () : void {
     this.navCtrl.push('RegisterIndependentPage')
+  }
+
+  ngOnChanges() {
+    this.hideIndependent = true
   }
 }

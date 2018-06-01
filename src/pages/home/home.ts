@@ -1,8 +1,8 @@
 import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
 import { AuthProvider } from './../../providers/auth/auth';
-import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { NavController, MenuController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user.model';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -26,12 +26,15 @@ export class HomePage {
   setNote : boolean = false
 
   title: string = 'Meus Agendamentos'
-  constructor(
+
+
+  constructor(public navParams: NavParams,
               public db : AngularFireDatabase,
               public userProvider : UserProvider,
               public authProvider: AuthProvider,
               public navCtrl: NavController,
-              public menuCtrl: MenuController)
+              public menuCtrl: MenuController,
+              public cd: ChangeDetectorRef)
   {
 
   }
@@ -40,12 +43,7 @@ export class HomePage {
     return this.authProvider.authenticated;
   }
   ionViewWillEnter(){
-
-  }
-  ionViewDidLoad(){
-    this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
-      this.notebook = this.db.list<Schedule>(`/notebook/${currentUser.id}`).valueChanges();
-
+    if(this.notebook){
       this.unSub = this.notebook.subscribe(
         value => {
           if(value.length != 0){
@@ -54,9 +52,24 @@ export class HomePage {
         }
       )
       setTimeout(() :void => {this.unSub.unsubscribe()},1000)
+    }
+  }
+  ionViewWillLeave(){
+    this.unSub.unsubscribe()
+  }
 
+  ionViewDidLoad(){
+    this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
+      this.notebook = this.db.list<Schedule>(`/notebook/${currentUser.id}`).valueChanges();
+      this.unSub = this.notebook.subscribe(
+        value => {
+          if(value.length != 0){
+            this.setNote = true
+          }
+        }
+      )
+      setTimeout(() :void => {this.unSub.unsubscribe()},1000)
     });
-
     this.users = this.userProvider.users;
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {

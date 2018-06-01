@@ -51,7 +51,7 @@ export class HomePage {
           }
         }
       )
-      setTimeout(() :void => {this.unSub.unsubscribe()},1000)
+      setTimeout(() :void => {this.unSub.unsubscribe()},500)
     }
   }
   ionViewWillLeave(){
@@ -68,7 +68,7 @@ export class HomePage {
           }
         }
       )
-      setTimeout(() :void => {this.unSub.unsubscribe()},1000)
+      setTimeout(() :void => {this.unSub.unsubscribe()},500)
     });
     this.users = this.userProvider.users;
 

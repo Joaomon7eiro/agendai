@@ -83,7 +83,7 @@ export class SchedulePage {
       this.hourValues.push(`${i}`)
     }
 
-    this.hoursAndMinutes = [`${this.independent.startTime}`]
+    this.hoursAndMinutes = []
 
     this.unSub = this.hoursUnavailable.subscribe(
       value => {
@@ -100,10 +100,9 @@ export class SchedulePage {
 
       this.unSub.unsubscribe()
 
-      for(let i = parseFloat(this.independent.duration), j = this.hourValues.length ,
+      for(let i = 0, j = this.hourValues.length ,
           k = 1, l = parseFloat(this.independent.startTime); k < j ; i += parseFloat(this.independent.duration)){
 
-            console.log()
         if(i>=60){
           i -= 60;
           l++;
@@ -115,6 +114,7 @@ export class SchedulePage {
           let aux = 0;
           for(let m = 0; m < this.unavailableArray.length; m++){
             if( this.unavailableArray[m].time == `${l}:0${i}` || this.unavailableArray[m].time == `${l}:${i}`){
+              console.log(this.unavailableArray[m].time)
               aux = 1;
               break;
             }

@@ -73,6 +73,7 @@ export class SchedulePage {
 
     this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.dateValue}`).valueChanges();
 
+
     this.hourValues = [`${this.independent.startTime}`]
 
     for(let i = parseFloat(this.independent.startTime) + 1; i <= Math.ceil(parseFloat(this.independent.endTime)); i++ ){
@@ -108,7 +109,6 @@ export class SchedulePage {
           let aux = 0;
           for(let m = 0; m < this.unavailableArray.length; m++){
             if( this.unavailableArray[m].time == `${l}:0${i}` || this.unavailableArray[m].time == `${l}:${i}`){
-              this.showAlert(this.unavailableArray[m].time)
               aux = 1;
               break;
             }
@@ -122,7 +122,7 @@ export class SchedulePage {
 
       }
 
-    } , 650)
+    } , 600)
   }
 
   cancelSchedule () : void {

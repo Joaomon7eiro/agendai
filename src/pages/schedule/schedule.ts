@@ -66,17 +66,15 @@ export class SchedulePage {
       })
   }
 
-  ionViewWillEnter(){
-
-  }
 
   onChange($event) {
 
     this.dateValue = this.date.format("DD-MM-YYYY");
 
     this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.dateValue}`).valueChanges();
-    console.log(this.independent.id)
-    console.log(this.dateValue)
+
+    this.showAlert(this.dateValue)
+
     this.hourValues = [`${this.independent.startTime}`]
 
     for(let i = parseFloat(this.independent.startTime) + 1; i <= Math.ceil(parseFloat(this.independent.endTime)); i++ ){
@@ -87,7 +85,7 @@ export class SchedulePage {
 
     this.unSub = this.hoursUnavailable.subscribe(
       value => {
-        console.log(value)
+        this.showAlert(value)
         if(value.length != 0){
           this.unavailableArray = value
         }else{
@@ -98,7 +96,6 @@ export class SchedulePage {
 
     setTimeout(() :void => {
 
-      this.unSub.unsubscribe()
 
       for(let i = 0, j = this.hourValues.length ,
           k = 1, l = parseFloat(this.independent.startTime); k < j ; i += parseFloat(this.independent.duration)){
@@ -129,7 +126,7 @@ export class SchedulePage {
 
       }
 
-    } , 200)
+    } , 600)
   }
 
   cancelSchedule () : void {
@@ -137,6 +134,9 @@ export class SchedulePage {
   }
 
   confirmSchedule () : void {
+
+    this.unSub.unsubscribe()
+
     let loading : Loading = this.showLoading();
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {

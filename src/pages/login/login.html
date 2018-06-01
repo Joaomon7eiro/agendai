@@ -8,6 +8,12 @@
 
 
 <ion-content padding>
+  <h2 text-center>Agendai App</h2>
+  <ion-avatar>
+    <div class="image-cropper">
+        <img [src]="'assets/imgs/agendai.jpg'">
+    </div>
+  </ion-avatar>
 
   <form [formGroup]="signInForm" (ngSubmit)="onSubmit(); $event.preventDefault()">
     <ion-list>

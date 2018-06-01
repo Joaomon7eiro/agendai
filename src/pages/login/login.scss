@@ -30,5 +30,17 @@ page-login {
 
   }
 
+  .image-cropper {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 10px auto 0 auto;
+  }
+
+  img {
+
+  }
 
 }

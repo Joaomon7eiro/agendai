@@ -10,6 +10,9 @@ import 'rxjs/add/operator/first';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { CategoriesPage } from '../categories/categories';
+import { Moment} from './../../../node_modules/moment'
+import 'moment/locale/pt-br';
+
 
 import { Subscription } from "rxjs/Subscription";
 
@@ -23,9 +26,11 @@ import { Subscription } from "rxjs/Subscription";
 export class SchedulePage {
 
   time : string
-  date : string;
+  date : Moment;
 
   type: 'moment';
+
+  dateValue : string
 
   hourValues : string[]
 
@@ -66,14 +71,17 @@ export class SchedulePage {
   }
 
   onChange($event) {
-    this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.date/*.format('l').replace(/\//g, '-')*/}`).valueChanges();
+    this.dateValue = this.date.format("DD-MM-YYYY");
+
+    this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.dateValue}`).valueChanges();
 
     this.hourValues = [`${this.independent.startTime}`]
-    for(let i = this.independent.startTime + 1; i <= this.independent.endTime; i++ ){
+
+    for(let i = parseFloat(this.independent.startTime) + 1; i <= Math.ceil(parseFloat(this.independent.endTime)); i++ ){
       this.hourValues.push(`${i}`)
     }
-
-    this.hoursAndMinutes= [`${this.independent.startTime}:00`]
+    console.log(this.hourValues)
+    this.hoursAndMinutes = [`${this.independent.startTime}:00`]
 
     this.unSub = this.hoursUnavailable.subscribe(
       value => {
@@ -88,8 +96,8 @@ export class SchedulePage {
     this.unSub.unsubscribe()
 
     setTimeout(() :void => {
-      for(let i = this.independent.duration, j = this.hourValues.length ,
-          k = 1, l = this.independent.startTime; k < j ; i += this.independent.duration ){
+      for(let i = parseFloat(this.independent.duration), j = this.hourValues.length ,
+          k = 1, l = parseFloat(this.independent.startTime); k < j ; i += parseFloat(this.independent.duration)){
         if(i>=60){
           i -= 60;
           l++;
@@ -105,10 +113,10 @@ export class SchedulePage {
             }
           }
           if (aux != 1){
-            i == 0 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
+            i < 10 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
           }
         }else{
-          i == 0 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
+          i < 10 ? this.hoursAndMinutes.push(`${l}:0${i}`) : this.hoursAndMinutes.push(`${l}:${i}`)
         }
 
       }
@@ -125,7 +133,7 @@ export class SchedulePage {
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
 
-      let scheduleForm = new Schedule(this.independent.name, this.date/*.format('l')*/ , this.date/*.format('dddd') */, this.time, this.independent.imageSrc)
+      let scheduleForm = new Schedule( currentUser.name, this.independent.name ,this.dateValue , this.date.format('dddd') , this.time)
 
       this.scheduleProvider.create(scheduleForm, currentUser.id , this.independent.id ).then(() => {
         console.log("agendamento criado")
@@ -136,9 +144,11 @@ export class SchedulePage {
         loading.dismiss();
         this.showAlert(error);
       });
-      delete scheduleForm.name
+
+      this.scheduleProvider.createAux(scheduleForm, currentUser.id , this.independent.id )
+      delete scheduleForm.nameClient
+      delete scheduleForm.nameIndependent
       delete scheduleForm.day
-      delete scheduleForm.photo
       this.scheduleProvider.unavailableHour(scheduleForm , this.independent.id)
     });
 

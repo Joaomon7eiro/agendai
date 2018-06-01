@@ -11,7 +11,7 @@
       <hr>
     </ion-item>
 
-    <img [src]='independent.imageSrc' >
+    <img [src]='independent.photo' >
 
     <ion-card-content>
       <h2>{{independent.description}}</h2>
@@ -34,13 +34,19 @@
     </ion-row>
 
     <ion-row>
-      <ion-col text-center center>
+      <ion-col>
         <button ion-button clear small icon-left>
-          <ion-icon name="calendar"></ion-icon>
-          <div>{{independent.days}}</div>
+          <ion-icon name="timer"></ion-icon>
+          <div>{{independent.duration}} min</div>
         </button>
-
-
+      </ion-col>
+      <ion-col>
+        <button ion-button clear small icon-left>
+          <ion-icon name="phone-portrait"></ion-icon>
+          <div>{{independent.telephone}}</div>
+        </button>
+      </ion-col>
+      <ion-col>
         <button ion-button clear small icon-left>
           <ion-icon name="star-half"></ion-icon>
           <div>{{independent.rating}}</div>

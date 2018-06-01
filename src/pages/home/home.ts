@@ -17,6 +17,8 @@ export class HomePage {
 
   schedules: Observable<Schedule[]>;
 
+  notebook : Observable<Schedule[]>;
+
   currentUser : User
 
   title: string = 'Meus Agendamentos'
@@ -40,6 +42,11 @@ export class HomePage {
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
       this.schedules = this.db.list<Schedule>(`/schedules/${currentUser.id}`).valueChanges();
     });
+
+    this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
+      this.notebook = this.db.list<Schedule>(`/notebook/${currentUser.id}`).valueChanges();
+    });
+
 
     this.menuCtrl.enable(true)
   }

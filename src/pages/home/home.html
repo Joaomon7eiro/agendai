@@ -8,7 +8,7 @@
   <ion-card *ngFor="let schedule of schedules | async">
 
     <ion-item>
-      <h1>{{schedule.name}}</h1>
+      <h1>{{schedule.nameIndependent}}</h1>
       <hr>
     </ion-item>
 
@@ -36,5 +36,40 @@
     </ion-row>
 
   </ion-card>
+
+  <h3 *ngIf="notebook">Minha Agenda</h3>
+
+  <ion-card *ngFor="let notes of notebook | async">
+
+    <ion-item>
+      <h1>{{notes.nameClient}}</h1>
+      <hr>
+    </ion-item>
+
+    <ion-row>
+      <!-- <ion-col>
+        <button ion-button clear small icon-left>
+          <ion-icon name="cash"></ion-icon>
+          <div>Preço R${{schedule.cost}}</div>
+        </button>
+      </ion-col> -->
+
+      <ion-col>
+        <button ion-button clear small icon-left>
+            <ion-icon name="clock"></ion-icon>
+            <div>{{notes.time}}</div>
+        </button>
+      </ion-col>
+
+      <ion-col text-center center>
+        <button ion-button clear small icon-left>
+          <ion-icon name="calendar"></ion-icon>
+          <div>{{notes.date}}</div>
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
 
 </ion-content>

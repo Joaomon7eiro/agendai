@@ -1,0 +1,63 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro Autonomo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+ <form [formGroup]="signIndependentForm" (ngSubmit)="onSubmit(); $event.preventDefault()">
+
+    <ion-item>
+      <ion-label color="primary" fixed>Nome:</ion-label>
+      <ion-input type="text" placeholder="Nome" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Categorias</ion-label>
+      <ion-select [(ngModel)]="category" formControlName="category">
+        <ion-option value="Beleza">Beleza</ion-option>
+        <ion-option value="Manutencao">Manutencao</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>Custo:</ion-label>
+      <ion-input type="number" placeholder="Preco R$" formControlName="cost"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>Descricao:</ion-label>
+      <ion-textarea type="text" placeholder="Breve Descricao" formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>Horario inicial</ion-label>
+      <ion-datetime displayFormat="HH:mm"  minuteValues='0,10,20,30,40,50' placeholder="Inicio jornada" formControlName="startTime"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>Horario final</ion-label>
+      <ion-datetime displayFormat="HH:mm" minuteValues='0,10,20,30,40,50' placeholder="Final jornada" formControlName="endTime"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>Duracao:</ion-label>
+      <ion-input type="number"  placeholder="Duracao media em minutos" formControlName="duration"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="image" item-start></ion-icon>
+      <input type="file"  (change)="onPhoto($event)" formControlName="photo">
+    </ion-item>
+
+    <br>
+
+    <button ion-button type="submit" block class="register" [disabled]="signIndependentForm.invalid">Me tornar um Autonomo</button>
+
+
+  </form>
+
+</ion-content>

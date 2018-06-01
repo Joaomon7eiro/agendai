@@ -39,6 +39,7 @@ export class UserProfilePage {
     });
   }
 
+
   onSubmit(event: Event): void {
     event.preventDefault();
 

@@ -1,13 +1,15 @@
+import { Moment } from "moment";
+
 export class Schedule {
 
   public id: string
 
   constructor(
-    public name : string,
+    public nameClient : string,
+    public nameIndependent : string,
     public date : string,
     public day : string,
-    public time : string,
-    public photo: string
+    public time : string
   ){
 
   }

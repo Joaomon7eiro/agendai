@@ -8,6 +8,7 @@ import * as firebase from 'firebase/app';
 import { FirebaseApp } from "angularfire2";
 import { Http } from '@angular/http';
 import 'firebase/storage';
+import { Independent } from '../../models/independent.model';
 
 @Injectable()
 export class UserProvider extends BaseProvider {
@@ -39,12 +40,30 @@ export class UserProvider extends BaseProvider {
     return this.db.object(`/users/${uuid}`).set(user).catch(this.handlePromiseError);
   }
 
+  createIndependent(independent: Independent, userId : string, category: string , userTel : string, photoUrl : string): Promise<void> {
+    independent.rating = 0
+    independent.photo = photoUrl
+    independent.id = userId
+    independent.telephone = userTel
+
+    console.log(independent.startTime)
+    console.log(independent.endTime)
+    category == 'Beleza' ? category = 'beauty' : category = 'maintenance'
+
+    return this.db.object(`/independents/${category}/${userId}`).set(independent).catch(this.handlePromiseError);
+  }
+
   edit(user: {name: string, telephone: string, photo: string}): Promise<void> {
     return this.currentUser.update(user).catch(this.handlePromiseError);
   }
 
   uploadPhoto(file: File, userId: string): firebase.storage.UploadTask {
     return this.firebaseApp.storage().ref().child(`/users/${userId}`).put(file);
+  }
+
+  uploadPhotoIndependent(file: File, userId: string, category: string): firebase.storage.UploadTask {
+    category == 'Beleza' ? category = 'beauty' : category = 'maintenance'
+    return this.firebaseApp.storage().ref().child(`/independents/${category}/${userId}`).put(file);
   }
 
   userExists(email: string): Observable<boolean> {

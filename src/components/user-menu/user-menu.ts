@@ -19,9 +19,14 @@ export class UserMenuComponent extends BaseComponent {
     public menuCtrl: MenuController
   ) {
     super(alertCtrl, authProvider, app, menuCtrl)
+    console.log(this.currentUser)
   }
 
   pushProfile () : void {
     this.navCtrl.push('UserProfilePage')
+  }
+
+  onBecameIndependent () : void {
+    this.navCtrl.push('RegisterIndependentPage')
   }
 }

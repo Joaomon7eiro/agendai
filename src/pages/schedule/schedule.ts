@@ -122,7 +122,7 @@ export class SchedulePage {
 
       }
 
-    } , 600)
+    } , 500)
   }
 
   cancelSchedule () : void {

@@ -40,11 +40,10 @@ export class UserProvider extends BaseProvider {
     return this.db.object(`/users/${uuid}`).set(user).catch(this.handlePromiseError);
   }
 
-  createIndependent(independent: Independent, userId : string, category: string , userTel : string, photoUrl : string): Promise<void> {
+  createIndependent(independent: Independent, userId : string, category: string , photoUrl : string): Promise<void> {
     independent.rating = 0
     independent.photo = photoUrl
     independent.id = userId
-    independent.telephone = userTel
 
     console.log(independent.startTime)
     console.log(independent.endTime)
@@ -54,6 +53,10 @@ export class UserProvider extends BaseProvider {
   }
 
   edit(user: {name: string, telephone: string, photo: string}): Promise<void> {
+    return this.currentUser.update(user).catch(this.handlePromiseError);
+  }
+
+  editIndependent(user: {independent: boolean}): Promise<void> {
     return this.currentUser.update(user).catch(this.handlePromiseError);
   }
 

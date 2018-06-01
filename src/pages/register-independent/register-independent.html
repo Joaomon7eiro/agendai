@@ -16,7 +16,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Categorias</ion-label>
+      <ion-label color="primary" fixed>Telefone:</ion-label>
+      <ion-input type="text" placeholder="Telefone" formControlName="telephone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Categoria</ion-label>
       <ion-select [(ngModel)]="category" formControlName="category">
         <ion-option value="Beleza">Beleza</ion-option>
         <ion-option value="Manutencao">Manutencao</ion-option>
@@ -52,6 +57,8 @@
       <ion-icon name="image" item-start></ion-icon>
       <input type="file"  (change)="onPhoto($event)" formControlName="photo">
     </ion-item>
+
+    <progress-bar *ngIf="uploadProgress" [progress]="uploadProgress"></progress-bar>
 
     <br>
 

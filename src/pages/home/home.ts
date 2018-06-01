@@ -4,7 +4,7 @@ import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { NavController, MenuController } from 'ionic-angular';
 import { User } from '../../models/user.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
@@ -21,6 +21,10 @@ export class HomePage {
 
   currentUser : User
 
+  unSub: Subscription
+
+  setNote : boolean = false
+
   title: string = 'Meus Agendamentos'
   constructor(
               public db : AngularFireDatabase,
@@ -35,16 +39,28 @@ export class HomePage {
   ionViewCanEnter () : Promise<boolean>{
     return this.authProvider.authenticated;
   }
+  ionViewWillEnter(){
 
+  }
   ionViewDidLoad(){
+    this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
+      this.notebook = this.db.list<Schedule>(`/notebook/${currentUser.id}`).valueChanges();
+
+      this.unSub = this.notebook.subscribe(
+        value => {
+          if(value.length != 0){
+            this.setNote = true
+          }
+        }
+      )
+      setTimeout(() :void => {this.unSub.unsubscribe()},1000)
+
+    });
+
     this.users = this.userProvider.users;
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
       this.schedules = this.db.list<Schedule>(`/schedules/${currentUser.id}`).valueChanges();
-    });
-
-    this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
-      this.notebook = this.db.list<Schedule>(`/notebook/${currentUser.id}`).valueChanges();
     });
 
 

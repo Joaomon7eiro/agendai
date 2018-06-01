@@ -26,6 +26,8 @@ export class RegisterIndependentPage {
 
   photoUrl:string
 
+  uploadProgress:number
+
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      public formBuilder : FormBuilder,
@@ -43,7 +45,8 @@ export class RegisterIndependentPage {
         startTime  : ['' , Validators.required],
         endTime    : ['' , Validators.required],
         duration   : ['' , Validators.required],
-        photo      : ['']
+        photo      : [''],
+        telephone  : ['' , Validators.required]
       })
 
       console.log(this.signIndependentForm.value)
@@ -76,7 +79,7 @@ export class RegisterIndependentPage {
 
       uploadTask.on('state_changed', (snapshot: firebase.storage.UploadTaskSnapshot) => {
 
-     //this.uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      this.uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
 
      }, (error: Error) => {
        // catch error
@@ -86,7 +89,7 @@ export class RegisterIndependentPage {
 
      uploadTask.then((UploadTaskSnapshot: firebase.storage.UploadTaskSnapshot) => {
       console.log(uploadTask.snapshot.downloadURL)
-      this.userProvider.createIndependent(formUser, this.currentUser.id , formUser.category ,this.currentUser.telephone , uploadTask.snapshot.downloadURL).then(() => {
+      this.userProvider.createIndependent(formUser, this.currentUser.id , formUser.category ,uploadTask.snapshot.downloadURL).then(() => {
         console.log("independente cadastrado com sucesso")
         loading.dismiss()
         this.navCtrl.setRoot(TabsPage);
@@ -97,8 +100,13 @@ export class RegisterIndependentPage {
       });
      });
 
+     this.userProvider.editIndependent({independent: true}).then(() => {
+      this.filePhoto = undefined;
+      //this.uploadProgress = 0;
+     });
+
     }else{
-      this.userProvider.createIndependent(formUser, this.currentUser.id , formUser.category ,this.currentUser.telephone , "").then(() => {
+      this.userProvider.createIndependent(formUser, this.currentUser.id , formUser.category  , "").then(() => {
         console.log("independente cadastrado com sucesso")
         loading.dismiss()
         this.navCtrl.setRoot(TabsPage);
@@ -107,6 +115,8 @@ export class RegisterIndependentPage {
         loading.dismiss();
         this.showAlert(error);
       });
+
+      this.userProvider.editIndependent({independent: true})
     }
 
 

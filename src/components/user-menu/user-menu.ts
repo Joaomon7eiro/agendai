@@ -12,6 +12,8 @@ export class UserMenuComponent extends BaseComponent {
 
   @Input('user') currentUser: User
 
+  hideIndependent : boolean = true
+
   constructor(
     public alertCtrl: AlertController,
     public authProvider: AuthProvider,
@@ -19,7 +21,6 @@ export class UserMenuComponent extends BaseComponent {
     public menuCtrl: MenuController
   ) {
     super(alertCtrl, authProvider, app, menuCtrl)
-    console.log(this.currentUser)
   }
 
   pushProfile () : void {

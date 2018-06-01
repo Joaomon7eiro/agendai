@@ -1,7 +1,8 @@
+
 export class User {
 
     public id: string
-
+    public independent : boolean
     constructor(
       public name : string,
       public email : string,

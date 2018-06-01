@@ -71,33 +71,39 @@ export class SchedulePage {
   }
 
   onChange($event) {
+
     this.dateValue = this.date.format("DD-MM-YYYY");
 
     this.hoursUnavailable = this.db.list(`/hoursUnavailable/${this.independent.id}/${this.dateValue}`).valueChanges();
-
+    console.log(this.independent.id)
+    console.log(this.dateValue)
     this.hourValues = [`${this.independent.startTime}`]
 
     for(let i = parseFloat(this.independent.startTime) + 1; i <= Math.ceil(parseFloat(this.independent.endTime)); i++ ){
       this.hourValues.push(`${i}`)
     }
-    console.log(this.hourValues)
-    this.hoursAndMinutes = [`${this.independent.startTime}:00`]
+
+    this.hoursAndMinutes = [`${this.independent.startTime}`]
 
     this.unSub = this.hoursUnavailable.subscribe(
       value => {
+        console.log(value)
         if(value.length != 0){
           this.unavailableArray = value
         }else{
           this.unavailableArray = []
         }
       }
-    );
-
-    this.unSub.unsubscribe()
+    )
 
     setTimeout(() :void => {
+
+      this.unSub.unsubscribe()
+
       for(let i = parseFloat(this.independent.duration), j = this.hourValues.length ,
           k = 1, l = parseFloat(this.independent.startTime); k < j ; i += parseFloat(this.independent.duration)){
+
+            console.log()
         if(i>=60){
           i -= 60;
           l++;
@@ -105,6 +111,7 @@ export class SchedulePage {
         }
 
         if(this.unavailableArray.length != 0){
+
           let aux = 0;
           for(let m = 0; m < this.unavailableArray.length; m++){
             if( this.unavailableArray[m].time == `${l}:0${i}` || this.unavailableArray[m].time == `${l}:${i}`){

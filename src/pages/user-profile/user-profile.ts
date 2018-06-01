@@ -18,7 +18,7 @@ export class UserProfilePage {
 
   currentUser: User;
   canEdit: boolean = false;
-  //uploadProgress: number;
+  uploadProgress: number;
   private filePhoto: File;
 
   constructor(
@@ -49,7 +49,7 @@ export class UserProfilePage {
 
        uploadTask.on('state_changed', (snapshot: firebase.storage.UploadTaskSnapshot) => {
 
-      //this.uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+       this.uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
 
       }, (error: Error) => {
         // catch error
@@ -78,7 +78,7 @@ export class UserProfilePage {
       }).then(() => {
         this.canEdit = false;
         this.filePhoto = undefined;
-        //this.uploadProgress = 0;
+        this.uploadProgress = 0;
       });
   }
 

@@ -97,7 +97,7 @@ export class SchedulePage {
     )
 
     setTimeout(() :void => {
-
+      this.showAlert(this.unavailableArray);
       this.unSub.unsubscribe()
 
       for(let i = 0, j = this.hourValues.length ,

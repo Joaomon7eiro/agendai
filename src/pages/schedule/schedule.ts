@@ -93,7 +93,7 @@ export class SchedulePage {
     )
 
     setTimeout(() :void => {
-
+      this.unSub.unsubscribe()
 
       for(let i = 0, j = this.hourValues.length ,
           k = 1, l = parseFloat(this.independent.startTime); k < j ; i += parseFloat(this.independent.duration)){

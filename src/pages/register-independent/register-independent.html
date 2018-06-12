@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Cadastro Autonomo</ion-title>
+    <ion-title>Cadastro Autônomo</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,7 +24,7 @@
       <ion-label>Categoria</ion-label>
       <ion-select [(ngModel)]="category" formControlName="category">
         <ion-option value="Beleza">Beleza</ion-option>
-        <ion-option value="Manutencao">Manutencao</ion-option>
+        <ion-option value="Manutencao">Manutenção</ion-option>
       </ion-select>
     </ion-item>
 
@@ -34,23 +34,23 @@
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" fixed>Descricao:</ion-label>
+      <ion-label color="primary" fixed>Descrição:</ion-label>
       <ion-textarea type="text" placeholder="Breve Descricao" formControlName="description"></ion-textarea>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" fixed>Horario inicial</ion-label>
+      <ion-label color="primary" fixed>Horário inicial</ion-label>
       <ion-datetime displayFormat="HH:mm"  minuteValues='0,10,20,30,40,50' placeholder="Inicio jornada" formControlName="startTime"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" fixed>Horario final</ion-label>
+      <ion-label color="primary" fixed>Horário final</ion-label>
       <ion-datetime displayFormat="HH:mm" minuteValues='0,10,20,30,40,50' placeholder="Final jornada" formControlName="endTime"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" fixed>Duracao:</ion-label>
-      <ion-input type="number"  placeholder="Duracao media(max 60)" formControlName="duration"></ion-input>
+      <ion-label color="primary" fixed>Duração(min):</ion-label>
+      <ion-input type="number"  placeholder="Duração max 60" formControlName="duration"></ion-input>
     </ion-item>
 
     <ion-item>

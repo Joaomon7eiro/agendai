@@ -10,7 +10,7 @@
     </ion-calendar>
 
     <ion-item>
-      <ion-label>Horários Disponiveis</ion-label>
+      <ion-label>Horários Disponíveis</ion-label>
       <ion-select  [(ngModel)]="time" formControlName="time">
         <ion-option *ngFor="let hourAndMinute of hoursAndMinutes" [value]="hourAndMinute">{{hourAndMinute}}</ion-option>
       </ion-select>

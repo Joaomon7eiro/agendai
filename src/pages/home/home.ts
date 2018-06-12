@@ -25,7 +25,7 @@ export class HomePage {
 
   setNote : boolean = false
 
-  title: string = 'Meus Agendamentos'
+  title: string = 'Agenda'
 
 
   constructor(public navParams: NavParams,
@@ -51,7 +51,7 @@ export class HomePage {
           }
         }
       )
-      setTimeout(() :void => {this.unSub.unsubscribe()},500)
+      setTimeout(() :void => {this.unSub.unsubscribe()},300)
     }
   }
   ionViewWillLeave(){
@@ -68,7 +68,7 @@ export class HomePage {
           }
         }
       )
-      setTimeout(() :void => {this.unSub.unsubscribe()},500)
+      setTimeout(() :void => {this.unSub.unsubscribe()},300)
     });
     this.users = this.userProvider.users;
 

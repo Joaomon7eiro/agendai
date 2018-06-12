@@ -6,4 +6,8 @@
     </div>
   </ion-avatar>
   <h2 text-center>{{user.name}}</h2>
+  <button *ngIf="!user.independent" button ion-item icon-right detail-none menuClose (click)="onBecameIndependent()">
+    Tornar-me um Autônomo
+    <ion-icon name="people" item-end></ion-icon>
+  </button>
 </div>

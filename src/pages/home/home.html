@@ -4,7 +4,7 @@
 
 <ion-content padding>
   <h3>Meus Agendamentos</h3>
-
+  <hr>
   <ion-card *ngFor="let schedule of schedules | async">
 
     <ion-item>
@@ -31,8 +31,10 @@
 
   </ion-card>
 
-
-  <h3 *ngIf="setNote">Minha Agenda </h3>
+  <div *ngIf="setNote">
+    <h3 >Minha Agenda </h3>
+    <hr>
+  </div>
 
   <ion-card *ngFor="let notes of notebook | async">
 

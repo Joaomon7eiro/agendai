@@ -27,6 +27,7 @@ export class UserProvider extends BaseProvider {
     this.listenAuthState()
   }
 
+
   private listenAuthState(): void {
     this.afAuth.authState.subscribe((authUser: firebase.User) => {
         if (authUser) {

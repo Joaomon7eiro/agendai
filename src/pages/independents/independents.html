@@ -1,59 +1,61 @@
 <ion-header>
-  <custom-header [title]="'Autonomos'"></custom-header>
+  <custom-header [title]="'Autônomos'"></custom-header>
 </ion-header>
 
 
 <ion-content padding>
   <ion-card *ngFor="let independent of independents | async" (click)="schedule(independent)">
+    <div *ngIf="currentUserId != independent.id">
+      <ion-item>
+        <h1>{{independent.name}}</h1>
+        <hr>
+      </ion-item>
 
-    <ion-item>
-      <h1>{{independent.name}}</h1>
-      <hr>
-    </ion-item>
+      <img [src]='independent.photo' >
 
-    <img [src]='independent.photo' >
+      <ion-card-content>
+        <h2>{{independent.description}}</h2>
+      </ion-card-content>
 
-    <ion-card-content>
-      <h2>{{independent.description}}</h2>
-    </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <button ion-button clear small icon-left>
+            <ion-icon name="cash"></ion-icon>
+            <div>Preço R${{independent.cost}}</div>
+          </button>
+        </ion-col>
 
-    <ion-row>
-      <ion-col>
-        <button ion-button clear small icon-left>
-          <ion-icon name="cash"></ion-icon>
-          <div>Preço R${{independent.cost}}</div>
-        </button>
-      </ion-col>
+        <ion-col>
+          <button ion-button clear small icon-left>
+              <ion-icon name="clock"></ion-icon>
+              <div>{{independent.startTime}} ate {{independent.endTime}}</div>
+          </button>
+        </ion-col>
+      </ion-row>
 
-      <ion-col>
-        <button ion-button clear small icon-left>
-            <ion-icon name="clock"></ion-icon>
-            <div>{{independent.startTime}} ate {{independent.endTime}}</div>
-        </button>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button clear small icon-left>
+            <ion-icon name="timer"></ion-icon>
+            <div>{{independent.duration}} min</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button clear small icon-left>
+            <ion-icon name="phone-portrait"></ion-icon>
+            <div>{{independent.telephone}}</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button clear small icon-left>
+            <ion-icon name="star-half"></ion-icon>
+            <div *ngIf="independent.rating!=0">{{independent.rating}}</div>
+            <div *ngIf="independent.rating==0">sem avaliacoes</div>
+          </button>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <button ion-button clear small icon-left>
-          <ion-icon name="timer"></ion-icon>
-          <div>{{independent.duration}} min</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button clear small icon-left>
-          <ion-icon name="phone-portrait"></ion-icon>
-          <div>{{independent.telephone}}</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button clear small icon-left>
-          <ion-icon name="star-half"></ion-icon>
-          <div *ngIf="independent.rating!=0">{{independent.rating}}</div>
-          <div *ngIf="independent.rating==0">sem avaliacoes</div>
-        </button>
-      </ion-col>
-    </ion-row>
+    </div>
 
 
   </ion-card>

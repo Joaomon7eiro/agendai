@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { User } from './../../models/user.model';
 import { Component, Input} from '@angular/core';
 import { BaseComponent } from '../base/base';
@@ -12,13 +13,11 @@ export class UserMenuComponent extends BaseComponent {
 
   @Input('user') currentUser: User
 
-  hideIndependent : boolean = false
-
   constructor(
     public alertCtrl: AlertController,
     public authProvider: AuthProvider,
     public app: App,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
   ) {
     super(alertCtrl, authProvider, app, menuCtrl)
   }
@@ -31,7 +30,4 @@ export class UserMenuComponent extends BaseComponent {
     this.navCtrl.push('RegisterIndependentPage')
   }
 
-  ngOnChanges() {
-    this.hideIndependent = true
-  }
 }

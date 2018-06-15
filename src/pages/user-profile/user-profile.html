@@ -1,14 +1,13 @@
 
 <ion-header>
-
-  <custom-header [title]="Perfil"></custom-header>
+  <custom-header [title]="'Perfil'"></custom-header>
 </ion-header>
 
 
 <ion-content padding>
   <user-info [user]="currentUser"></user-info>
 
-  <button ion-button block (click)="canEdit = !canEdit">Editar Perfil</button>
+  <button ion-button block  (click)="canEdit = !canEdit">Editar Perfil</button>
 
 
   <form (ngSubmit)="onSubmit($event)" *ngIf="canEdit" #profileForm="ngForm">
@@ -45,7 +44,7 @@
       <progress-bar *ngIf="uploadProgress" [progress]="uploadProgress"></progress-bar>
 
       <br>
-      <button ion-button block type="submit" [disabled]="profileForm.form.invalid">Salvar</button>
+      <button ion-button block type="submit" color="ag-purple" [disabled]="profileForm.form.invalid">Salvar</button>
 
     </form>
 </ion-content>

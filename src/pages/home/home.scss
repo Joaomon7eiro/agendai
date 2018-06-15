@@ -12,4 +12,12 @@ page-home {
   ion-icon[name="clock"]{
     color: rgb(0, 111, 155);
   }
+  ion-card-content{
+    margin-top: 1%;
+  }
+
+  button{
+    margin:0px !important;
+  }
+
 }

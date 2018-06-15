@@ -8,10 +8,10 @@
 
 
 <ion-content padding>
-  <h2 text-center>Agendai App</h2>
+  <h2 text-center>AGENDAI APP</h2>
   <ion-avatar>
     <div class="image-cropper">
-        <img [src]="'assets/imgs/agendai.jpg'">
+        <img [src]="'assets/imgs/agendaiicon.png'">
     </div>
   </ion-avatar>
 
@@ -29,7 +29,7 @@
         </ion-item>
 
         <div padding>
-          <button ion-button type="submit" block class="buttonLogin" [disabled]="signInForm.invalid">Entrar</button>
+          <button ion-button type="submit" block color="primary" [disabled]="signInForm.invalid">Entrar</button>
         </div>
 
       </ion-list>
@@ -37,7 +37,7 @@
   </form>
 
   <div padding>
-    <button ion-button block class="buttonRegister" (click)="pushRegisterPage();">Cadastrar</button>
+    <button ion-button block color="primary" (click)="pushRegisterPage();">Cadastrar</button>
   </div>
 <!--
   <div style="text-align: center;">

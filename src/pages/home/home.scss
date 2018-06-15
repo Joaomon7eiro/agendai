@@ -1,3 +1,15 @@
 page-home {
 
+  ion-col span.button-inner div{
+    color: black;
+  }
+
+
+  ion-icon[name="calendar"]{
+    color: rgb(197, 2, 2);
+  }
+
+  ion-icon[name="clock"]{
+    color: rgb(0, 111, 155);
+  }
 }

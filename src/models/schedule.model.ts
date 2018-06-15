@@ -7,6 +7,7 @@ export class Schedule {
   constructor(
     public nameClient : string,
     public nameIndependent : string,
+    public idIndependent : string,
     public date : string,
     public day : string,
     public time : string

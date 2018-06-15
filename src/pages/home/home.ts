@@ -2,10 +2,11 @@ import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, MenuController, NavParams } from 'ionic-angular';
+import { NavController, MenuController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { User } from '../../models/user.model';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { RatingPage } from '../rating/rating';
 
 @Component({
   selector: 'page-home',
@@ -27,14 +28,15 @@ export class HomePage {
 
   title: string = 'Agenda'
 
-
   constructor(public navParams: NavParams,
               public db : AngularFireDatabase,
               public userProvider : UserProvider,
               public authProvider: AuthProvider,
               public navCtrl: NavController,
               public menuCtrl: MenuController,
-              public cd: ChangeDetectorRef)
+              public cd: ChangeDetectorRef,
+              public alertCtrl : AlertController,
+              public modalCtrl: ModalController)
   {
 
   }
@@ -51,7 +53,7 @@ export class HomePage {
           }
         }
       )
-      setTimeout(() :void => {this.unSub.unsubscribe()},300)
+      setTimeout(() :void => {this.unSub.unsubscribe()},400)
     }
   }
   ionViewWillLeave(){
@@ -68,7 +70,7 @@ export class HomePage {
           }
         }
       )
-      setTimeout(() :void => {this.unSub.unsubscribe()},300)
+      setTimeout(() :void => {this.unSub.unsubscribe()},400)
     });
     this.users = this.userProvider.users;
 
@@ -78,6 +80,17 @@ export class HomePage {
 
 
     this.menuCtrl.enable(true)
+  }
+
+  rate (idIndependent) : void {
+    console.log(idIndependent)
+    let rateModal = this.modalCtrl.create(RatingPage, { id : idIndependent }, {enableBackdropDismiss: true});
+    rateModal.present();
+  }
+
+  onModelChange(event, independentId) : void {
+    console.log(event)
+    console.log(independentId)
   }
 
 }

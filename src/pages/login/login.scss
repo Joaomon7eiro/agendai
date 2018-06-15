@@ -1,29 +1,8 @@
 page-login {
-
-  .buttonLogin
-  {
-    background-color : #394694;
-
+  button{
+    border-radius: 20px !important;
   }
 
-  .buttonRegister
-  {
-    background-color : #F79E4C;
-
-  }
-  .buttonFacebook
-  {
-    background-color : #394694;
-    float:left;
-    width:40%;
-  }
-  .buttonGoogle
-  {
-    background-color : #F83F42;
-    float:right;
-    width:40%;
-
-  }
   .socialMediaButtons
   {
     display:flex;
@@ -31,16 +10,21 @@ page-login {
   }
 
   .image-cropper {
-    width: 180px;
-    height: 180px;
+    width: 140px;
+    height: 140px;
     position: relative;
     overflow: hidden;
-    border-radius: 50%;
+    border-radius: 20%;
     margin: 10px auto 0 auto;
   }
-
   img {
+    margin: 0 auto;
+    height: 100%;
+    min-width: 100%;
+  }
 
+  h2{
+    color: #512da8;
   }
 
 }

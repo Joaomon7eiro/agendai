@@ -4,8 +4,8 @@
 
 <ion-content padding>
 
-    <ion-list>
-      <ion-item *ngFor="let category of categories | async" >
+    <ion-list no-lines>
+      <ion-item *ngFor="let category of categories | async" margin-vertical>
           <button ion-button clear  (click)="showIndependent(category);"  icon-left>
             <ion-icon [name]="category.icon"></ion-icon>
             <div>{{ category.name }}</div>

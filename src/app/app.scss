@@ -14,3 +14,59 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+div.menu-inner{
+  background: #fff!important;
+}
+
+$SIDEMENU_TOP: #512da8;
+$SIDEMENU_BOTTOM: #512da8;
+$SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
+
+.toolbar-background-md {
+    background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background-repeat: repeat-x;
+}
+
+.toolbar-background-ios{
+    background: -webkit-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background-repeat: repeat-x;
+}
+
+.toolbar-title-md {
+  color:white;
+}
+
+.bar-button {
+  color:white;
+}
+
+ion-modal {
+  @media (min-width: 300px) and (min-height: 500px) {
+    ion-backdrop {
+      visibility: visible ;
+    }
+  }
+
+  .modal-wrapper {
+    position: absolute ;
+    overflow: hidden ;
+    max-width: 280px ;
+    border-radius: 2px ;
+    width: 80vw ;
+    height: 25vh ;
+    top: 0 ;
+    bottom: 0 ;
+    left: 0 ;
+    right: 0 ;
+    margin: auto ;
+    border: 0 ;
+    box-shadow: 0 16px 20px rgba(0,0,0,.4) ;
+    background-color: #fafafa ;
+  }
+}

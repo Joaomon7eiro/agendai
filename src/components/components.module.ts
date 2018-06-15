@@ -8,11 +8,13 @@ import { ProgressBarComponent } from './progressbar/progressbar';
 	declarations: [CustomHeaderComponent,
     UserInfoComponent,
     UserMenuComponent,
-    ProgressBarComponent],
+    ProgressBarComponent
+    ],
 	imports: [IonicModule],
 	exports: [CustomHeaderComponent,
     UserInfoComponent,
     UserMenuComponent,
-    ProgressBarComponent]
+    ProgressBarComponent
+    ]
 })
 export class ComponentsModule {}

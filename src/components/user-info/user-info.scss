@@ -19,12 +19,35 @@ user-info {
   }
 
   .custom-background {
-    background-color: #555;
-}
+    background: linear-gradient(to right, #44258d, #b93b14);
+  }
 
   ion-avatar {
     padding-top: 10px;
-    padding-bottom: 35px;
+    padding-bottom: 5px;
+  }
+
+  span{
+    color:#333;
+  }
+
+  h4{
+    margin-left: 15px;
+    margin-top: 20px;
+    color: white;
+    font-size:12pt;
+    margin-bottom: 1px;
+  }
+
+  h6{
+    margin-left: 15px;
+    font-size:12pt;
+    color: #AAA;
+    margin-top: 0px !important;
+  }
+
+  div.ind{
+    border-bottom: 1px solid #bbb;
   }
 
 }

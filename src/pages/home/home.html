@@ -5,7 +5,7 @@
 <ion-content padding>
   <h3>Meus Agendamentos</h3>
   <hr>
-  <ion-card *ngFor="let schedule of schedules | async">
+  <ion-card *ngFor="let schedule of schedules | async ;  let i=index">
 
     <ion-item>
       <h1>{{schedule.nameIndependent}}</h1>
@@ -28,6 +28,7 @@
         </button>
       </ion-col>
     </ion-row>
+    <button ion-button block (click)="rate(schedule.idIndependent)">Avaliar</button>
 
   </ion-card>
 

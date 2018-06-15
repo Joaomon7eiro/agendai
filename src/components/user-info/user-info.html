@@ -1,13 +1,19 @@
 <!-- Generated template for the UserInfoComponent component -->
-<div *ngIf="user" >
+<div *ngIf="user">
+
   <ion-avatar [ngClass]="{'custom-background': isMenu}">
     <div class="image-cropper">
         <img [src]=" user.photo || 'assets/imgs/no-photo.png' ">
     </div>
+    <h4 text-left>{{user.name}}</h4>
+    <h6 text-left>{{user.email}}</h6>
   </ion-avatar>
-  <h2 text-center>{{user.name}}</h2>
-  <button *ngIf="!user.independent" button ion-item icon-right detail-none menuClose (click)="onBecameIndependent()">
-    Tornar-me um Autônomo
-    <ion-icon name="people" item-end></ion-icon>
-  </button>
+
+  <div class="ind">
+    <button *ngIf="!user.independent" ion-button full clear icon-right detail-none menuClose margin-vertical (click)="onBecameIndependent()">
+      Tornar-me um Autônomo
+      <ion-icon name="people" item-end></ion-icon>
+    </button>
+  </div>
+
 </div>

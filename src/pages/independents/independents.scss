@@ -1,2 +1,35 @@
 page-independents {
+  ion-item {
+    background : #512da8 !important;
+  }
+
+  h1{
+    color : white !important;
+  }
+  ion-card-content{
+    border-bottom: 1px solid #BBB;
+  }
+  ion-col span.button-inner div{
+    color: black;
+  }
+
+  ion-icon[name="cash"]{
+    color: rgb(13, 155, 0);
+  }
+
+  ion-icon[name="clock"]{
+    color: rgb(0, 111, 155);
+  }
+
+  ion-icon[name="timer"]{
+    color: rgb(197, 95, 0);
+  }
+
+  ion-icon[name="phone-portrait"]{
+    color: rgb(94, 135, 136);
+  }
+
+  ion-icon[name="star-half"]{
+    color: rgb(207, 193, 0);
+  }
 }

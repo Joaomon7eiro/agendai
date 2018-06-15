@@ -137,7 +137,7 @@ export class SchedulePage {
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
 
-      let scheduleForm = new Schedule( currentUser.name, this.independent.name ,this.dateValue , this.date.format('dddd') , this.time)
+      let scheduleForm = new Schedule( currentUser.name, this.independent.name ,this.dateValue , this.date.format('dddd') , this.time,  this.independent.id)
 
       this.scheduleProvider.create(scheduleForm, currentUser.id , this.independent.id ).then(() => {
         console.log("agendamento criado")

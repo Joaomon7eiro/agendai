@@ -1,3 +1,4 @@
+import { RatingPage } from './../pages/rating/rating';
 import { CategoriesPage } from './../pages/categories/categories';
 import { ComponentsModule } from './../components/components.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,6 +24,7 @@ import locale from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HttpModule } from '@angular/http';
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 
 
@@ -41,7 +43,8 @@ registerLocaleData(locale);
     MyApp,
     HomePage,
     TabsPage,
-    CategoriesPage
+    CategoriesPage,
+    RatingPage
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseAppConfig),
@@ -50,14 +53,16 @@ registerLocaleData(locale);
     BrowserModule,
     IonicModule.forRoot(MyApp),
     ComponentsModule,
-    HttpModule
+    HttpModule,
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     TabsPage,
-    CategoriesPage
+    CategoriesPage,
+    RatingPage
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt' },

@@ -1,14 +1,12 @@
 <user-info [user]="currentUser" [isMenu]="true"></user-info>
 
-<ion-list no-lines>
-  <button ion-item icon-right detail-none menuClose (click)="pushProfile()">
-    Perfil
-    <ion-icon name="person" item-end></ion-icon>
+<ion-list no-lines text-left icon-right>
+  <button ion-button full clear detail-none menuClose margin-vertical (click)="pushProfile()">
+    <ion-icon name="person"></ion-icon>
+    <div>Perfil</div>
   </button>
-  <button ion-item icon-right detail-none menuClose (click)="onLogout()">
-    Sair
-    <ion-icon name="log-out" item-end></ion-icon>
+  <button ion-button full clear detail-none menuClose margin-vertical (click)="onLogout()">
+    <ion-icon name="log-out"></ion-icon>
+    <div>Sair</div>
   </button>
-
-
 </ion-list>

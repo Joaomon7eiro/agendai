@@ -1,3 +1,19 @@
 page-categories {
+  ion-list span.button-inner{
+    font-size: 15pt !important;
+  }
+  ion-list span.button-inner div{
+    color: black;
+  }
+  ion-item{
+    border-bottom: 1px solid #AAA !important;
+  }
 
+  ion-icon[aria-label="bowtie"] {
+    color:rgb(228, 0, 171)  !important;
+  }
+  ion-icon[aria-label="build"] {
+    color:rgb(54, 115, 141)  !important;
+  }
 }
+

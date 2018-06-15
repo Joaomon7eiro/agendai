@@ -26,8 +26,4 @@ export class UserMenuComponent extends BaseComponent {
     this.navCtrl.push('UserProfilePage')
   }
 
-  onBecameIndependent () : void {
-    this.navCtrl.push('RegisterIndependentPage')
-  }
-
 }

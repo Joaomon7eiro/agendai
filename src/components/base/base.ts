@@ -17,21 +17,20 @@ export abstract class BaseComponent implements OnInit {
     ngOnInit(): void {
       this.navCtrl = this.app.getRootNav()
     }
-
     onLogout(): void {
 
         this.alertCtrl.create({
             message: 'Deseja sair?',
             buttons: [
                 {
-                    text: 'Sim',
-                    handler: () => {
-                        this.authProvider.logout()
-                            .then(() => {
-                              this.navCtrl.setRoot('LoginPage');
-                              this.menuCtrl.enable(false);
-                            });
-                    }
+                  text: 'Sim',
+                  handler: () => {
+                      this.authProvider.logout()
+                          .then(() => {
+                            this.navCtrl.setRoot('LoginPage');
+                            this.menuCtrl.enable(false);
+                          });
+                  }
                 },
                 {
                     text: 'Não'

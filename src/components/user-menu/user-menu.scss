@@ -1,3 +1,10 @@
 user-menu {
 
+  ion-list button span.button-inner{
+    color:#222;
+    justify-content: flex-start;
+  }
+  span.button-inner div{
+    margin-left: 15px;
+  }
 }

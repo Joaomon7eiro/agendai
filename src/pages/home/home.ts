@@ -94,3 +94,15 @@ export class HomePage {
   }
 
 }
+/*
+
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "users":{
+      ".read": true,
+    	".write": true
+    }
+  }
+}*/

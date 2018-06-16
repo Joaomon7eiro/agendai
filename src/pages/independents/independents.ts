@@ -38,14 +38,6 @@ export class IndependentsPage {
     console.log(this.currentUserId)
     this.independents = this.db.list<Independent>(`/independents/${this.category.id}`).valueChanges();
 
-    // this.independents = this.mapListKeys<Independent>(
-    //   this.db.list<Independent>(`/independents`,
-    //     (ref: firebase.database.Reference) => ref.orderByChild('name')
-    //   )
-    // )
-    // .map((independents: Independent[]) => {
-    //   return independents.filter((independent: Independent) => independent.id !== this.currentUserId);
-    // });
 
   }
 

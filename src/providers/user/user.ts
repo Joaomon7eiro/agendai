@@ -45,9 +45,7 @@ export class UserProvider extends BaseProvider {
     independent.rating = 0
     independent.photo = photoUrl
     independent.id = userId
-
-    console.log(independent.startTime)
-    console.log(independent.endTime)
+    
     category == 'Beleza' ? category = 'beauty' : category = 'maintenance'
 
     return this.db.object(`/independents/${category}/${userId}`).set(independent).catch(this.handlePromiseError);

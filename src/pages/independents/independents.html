@@ -15,7 +15,7 @@
       <ion-card-content>
         <h2>{{independent.description}}</h2>
         <hr>
-        <h3>Endereço : RUA ALGUMA , Nº 99, BAIRRO ALGUM, CEP:12121121 , CIDADE/ UF</h3>
+        <h3>Endereço : {{independent.address}}, Bairro: {{independent.district}} , {{independent.city}}/ {{independent.state}}</h3>
       </ion-card-content>
 
       <ion-row>
@@ -38,7 +38,7 @@
         <ion-col>
           <button ion-button clear small icon-left>
             <ion-icon name="timer"></ion-icon>
-            <div>{{independent.duration}} min</div>
+            <div>{{independent.duration}} minutos</div>
           </button>
         </ion-col>
         <ion-col>

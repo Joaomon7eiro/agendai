@@ -126,8 +126,10 @@ export class SchedulePage {
   }
 
   cancelSchedule () : void {
-    this.navCtrl.setRoot(CategoriesPage);
+    this.navCtrl.pop();
   }
+
+
 
   confirmSchedule () : void {
 
@@ -137,7 +139,9 @@ export class SchedulePage {
 
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
 
-      let scheduleForm = new Schedule( currentUser.name, this.independent.name ,this.dateValue , this.date.format('dddd') , this.time,  this.independent.id)
+      let scheduleForm = new Schedule( currentUser.name, this.independent.name ,this.independent.id,
+        this.independent.telephone, this.independent.address ,this.independent.district , this.independent.city ,
+        this.independent.state ,this.dateValue , this.date.format('dddd') , this.time)
 
       this.scheduleProvider.create(scheduleForm, currentUser.id , this.independent.id ).then(() => {
         console.log("agendamento criado")
@@ -149,10 +153,29 @@ export class SchedulePage {
         this.showAlert(error);
       });
 
-      this.scheduleProvider.createAux(scheduleForm, currentUser.id , this.independent.id )
+      delete scheduleForm.addressIndependent
+      delete scheduleForm.cityIndependent
+      delete scheduleForm.districtIndependent
+      delete scheduleForm.stateIndependent
+
+      scheduleForm.telephoneClient = currentUser.telephone
+      scheduleForm.addressClient   = currentUser.address
+      scheduleForm.districtClient  = currentUser.district
+      scheduleForm.cityClient      = currentUser.city
+      scheduleForm.stateClient     = currentUser.state
+
+      this.scheduleProvider.createNotebook(scheduleForm, currentUser.id , this.independent.id )
       delete scheduleForm.nameClient
       delete scheduleForm.nameIndependent
+
       delete scheduleForm.day
+
+      delete scheduleForm.telephoneClient
+      delete scheduleForm.addressClient
+      delete scheduleForm.districtClient
+      delete scheduleForm.cityClient
+      delete scheduleForm.stateClient
+
       this.scheduleProvider.unavailableHour(scheduleForm , this.independent.id)
     });
 

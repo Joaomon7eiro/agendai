@@ -37,6 +37,10 @@ export class RegisterPage {
       telephone : ['', Validators.compose([Validators.required,Validators.pattern(this.numberRegex),Validators.minLength(9)])],
       useTerms  : [false, [Validators.requiredTrue]],
       name      : ['' , [Validators.required, Validators.minLength(4)]],
+      address   : ['' , Validators.required],
+      district  : ['' , Validators.required],
+      city      : ['' , Validators.required],
+      state     : ['' , Validators.required],
     })
   }
 

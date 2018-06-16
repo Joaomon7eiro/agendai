@@ -48,7 +48,11 @@ export class RegisterIndependentPage {
         endTime    : ['' , Validators.required],
         duration   : ['' , Validators.required],
         photo      : [''],
-        telephone  : ['', Validators.compose([Validators.required,Validators.pattern(this.numberRegex),Validators.minLength(9)])]
+        telephone  : ['' , Validators.compose([Validators.required,Validators.pattern(this.numberRegex),Validators.minLength(9)])],
+        address    : ['' , Validators.required],
+        district   : ['' , Validators.required],
+        city       : ['' , Validators.required],
+        state      : ['' , Validators.required],
       })
 
       console.log(this.signIndependentForm.value)

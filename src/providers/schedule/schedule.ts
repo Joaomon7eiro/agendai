@@ -17,7 +17,7 @@ export class ScheduleProvider extends BaseProvider {
     return this.db.object<Schedule>(`/schedules/${userId}/${independentId}`).set(schedule).catch(this.handlePromiseError);
   }
 
-  createAux(schedule: Schedule , userId: string, independentId: string): Promise<void> {
+  createNotebook(schedule: Schedule , userId: string, independentId: string): Promise<void> {
     return this.db.object<Schedule>(`/notebook/${independentId}/${userId}`).set(schedule).catch(this.handlePromiseError);
   }
 

@@ -11,7 +11,7 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = CategoriesPage;
-
+  tab3Root = CategoriesPage;
 
   constructor(public authProvider:AuthProvider) {
 

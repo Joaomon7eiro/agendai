@@ -21,6 +21,29 @@
     </ion-item>
 
     <ion-item>
+      <ion-label color="primary" fixed>Endereço:</ion-label>
+      <ion-input type="text" placeholder="Rua e Número" formControlName="address"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>Bairro:</ion-label>
+      <ion-input type="text" placeholder="Digite o bairro" formControlName="district"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>Cidade:</ion-label>
+      <ion-input type="text" placeholder="Digite a cidade" formControlName="city"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" fixed>UF:</ion-label>
+      <ion-input type="text" placeholder="Estado. ex: SP" formControlName="state"></ion-input>
+    </ion-item>
+
+    <h3>Dados do Serviço:</h3>
+    <hr>
+
+    <ion-item>
       <ion-label>Categoria</ion-label>
       <ion-select [(ngModel)]="category" formControlName="category">
         <ion-option value="Beleza">Beleza</ion-option>
@@ -39,13 +62,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" fixed>Horário inicial</ion-label>
-      <ion-datetime displayFormat="HH:mm"  minuteValues='0,10,20,30,40,50' placeholder="Inicio jornada" formControlName="startTime"></ion-datetime>
+      <ion-label color="primary" fixed>Horário inicial:</ion-label>
+      <ion-datetime displayFormat="HH:mm"  minuteValues='0,10,20,30,40,50' placeholder="Inicio expediente" formControlName="startTime"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" fixed>Horário final</ion-label>
-      <ion-datetime displayFormat="HH:mm" minuteValues='0,10,20,30,40,50' placeholder="Final jornada" formControlName="endTime"></ion-datetime>
+      <ion-label color="primary" fixed>Horário final:</ion-label>
+      <ion-datetime displayFormat="HH:mm" minuteValues='0,10,20,30,40,50' placeholder="Final expediente" formControlName="endTime"></ion-datetime>
     </ion-item>
 
     <ion-item>

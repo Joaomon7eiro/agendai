@@ -9,42 +9,41 @@
 
   <button ion-button block  (click)="canEdit = !canEdit">Editar Perfil</button>
 
-
   <form (ngSubmit)="onSubmit($event)" *ngIf="canEdit" #profileForm="ngForm">
 
-      <ion-item>
-        <ion-icon name="person" item-start></ion-icon>
-        <ion-input
-          type="text"
-          placeholder="Nome"
-          name="name"
-          [(ngModel)]="currentUser.name"
-          required
-          minlenght="3">
-        </ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-icon name="person" item-start></ion-icon>
+      <ion-input
+        type="text"
+        placeholder="Nome"
+        name="name"
+        [(ngModel)]="currentUser.name"
+        required
+        minlenght="3">
+      </ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-icon name="phone-portrait" item-start></ion-icon>
-        <ion-input
-          type="tel"
-          placeholder="Telefone"
-          name="telephone"
-          [(ngModel)]="currentUser.telephone"
-          required
-          minlenght="9">
-        </ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-icon name="phone-portrait" item-start></ion-icon>
+      <ion-input
+        type="tel"
+        placeholder="Telefone"
+        name="telephone"
+        [(ngModel)]="currentUser.telephone"
+        required
+        minlenght="9">
+      </ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-icon name="image" item-start></ion-icon>
-        <input type="file"  (change)="onPhoto($event)">
-      </ion-item>
+    <ion-item>
+      <ion-icon name="image" item-start></ion-icon>
+      <input type="file"  (change)="onPhoto($event)">
+    </ion-item>
 
-      <progress-bar *ngIf="uploadProgress" [progress]="uploadProgress"></progress-bar>
+    <progress-bar *ngIf="uploadProgress" [progress]="uploadProgress"></progress-bar>
 
-      <br>
-      <button ion-button block type="submit" color="ag-purple" [disabled]="profileForm.form.invalid">Salvar</button>
+    <br>
+    <button ion-button block type="submit" color="ag-purple" [disabled]="profileForm.form.invalid">Salvar</button>
 
-    </form>
+  </form>
 </ion-content>

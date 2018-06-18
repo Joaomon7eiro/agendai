@@ -33,7 +33,7 @@
         </button>
       </ion-col>
     </ion-row>
-    <button ion-button block (click)="rate(schedule.idIndependent)">Avaliar</button>
+    <button [id]="this.btnId" ion-button block (click)="rate(schedule.idIndependent, schedule.idClient , schedule.categoryIndependent)">Avaliar</button>
 
   </ion-card>
 

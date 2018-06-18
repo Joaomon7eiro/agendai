@@ -40,12 +40,18 @@ export class UserProvider extends BaseProvider {
     user.id = uuid;
     return this.db.object(`/users/${uuid}`).set(user).catch(this.handlePromiseError);
   }
+  createRating(rating: string, userId : string, independentId: string){
+    return this.db.object(`/rating/${independentId}/${userId}`).set({rating : rating}).catch(this.handlePromiseError);
+  }
 
+  updateRating(category: string, independentId : string, ratingAvg: number){
+    return this.db.object(`/independents/${category}/${independentId}`).update({rating : ratingAvg}).catch(this.handlePromiseError);
+  }
   createIndependent(independent: Independent, userId : string, category: string , photoUrl : string): Promise<void> {
     independent.rating = 0
     independent.photo = photoUrl
     independent.id = userId
-    
+
     category == 'Beleza' ? category = 'beauty' : category = 'maintenance'
 
     return this.db.object(`/independents/${category}/${userId}`).set(independent).catch(this.handlePromiseError);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 
 
 @Component({
@@ -8,33 +8,37 @@ import { IonicPage, NavController, NavParams, AlertController, ViewController } 
 })
 export class RatingPage {
 
-  id : string;
-
+  independentId : string;
+  clientId : string;
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      public alertCtrl:AlertController,
-     public viewCtrl: ViewController) {
-    this.id = navParams.get('id')
-  }
+     public viewCtrl: ViewController
+    ){
+      this.independentId = navParams.get('idIndependent')
+      this.clientId = navParams.get('idClient')
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RatingPage');
   }
 
-  onModelChange (event) : void {
-    this.showAlert('Confirmar avaliação?');
-    console.log(event)
-    console.log(this.id)
+  onModelChange (rate) : void {
+    this.showAlert('Confirmar avaliação?', rate, this.independentId,this.clientId);
+    //console.log(event)
+    //console.log(this.id)
   }
 
-  private showAlert (message) : void {
+  private showAlert (message, rate, independentId, clientId) : void {
+    let data = { rate: rate, independentId: independentId, clientId: clientId };
+
     this.alertCtrl.create({
       message : message,
       buttons: [
         {
           text: 'Sim',
           handler: () => {
-            this.viewCtrl.dismiss();
+            this.viewCtrl.dismiss(data);
           }
         },
         {

@@ -14,6 +14,7 @@ export class ScheduleProvider extends BaseProvider {
   }
 
   create(schedule: Schedule , userId: string, independentId: string): Promise<void> {
+    schedule.categoryIndependent == 'Beleza' ? schedule.categoryIndependent = 'beauty' : schedule.categoryIndependent = 'maintenance'
     return this.db.object<Schedule>(`/schedules/${userId}/${independentId}`).set(schedule).catch(this.handlePromiseError);
   }
 

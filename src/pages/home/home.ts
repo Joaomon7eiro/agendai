@@ -2,11 +2,12 @@ import { Schedule } from './../../models/schedule.model';
 import { UserProvider } from './../../providers/user/user';
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, MenuController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { NavController, MenuController, NavParams, AlertController, ModalController, ViewController } from 'ionic-angular';
 import { User } from '../../models/user.model';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { RatingPage } from '../rating/rating';
+
 
 @Component({
   selector: 'page-home',
@@ -28,6 +29,12 @@ export class HomePage {
 
   title: string = 'Agenda'
 
+  ratingAvg : number;
+
+  ratingObs: Observable<any[]>;
+
+  btnId : string;
+
   constructor(public navParams: NavParams,
               public db : AngularFireDatabase,
               public userProvider : UserProvider,
@@ -36,7 +43,8 @@ export class HomePage {
               public menuCtrl: MenuController,
               public cd: ChangeDetectorRef,
               public alertCtrl : AlertController,
-              public modalCtrl: ModalController)
+              public modalCtrl: ModalController,
+              public viewCtrl: ViewController)
   {
 
   }
@@ -57,7 +65,7 @@ export class HomePage {
     }
   }
   ionViewWillLeave(){
-    this.unSub.unsubscribe()
+    //this.unSub.unsubscribe()
   }
 
   ionViewDidLoad(){
@@ -78,13 +86,39 @@ export class HomePage {
       this.schedules = this.db.list<Schedule>(`/schedules/${currentUser.id}`).valueChanges();
     });
 
-
     this.menuCtrl.enable(true)
   }
 
-  rate (idIndependent) : void {
-    console.log(idIndependent)
-    let rateModal = this.modalCtrl.create(RatingPage, { id : idIndependent }, {enableBackdropDismiss: true});
+  rate (idIndependent, idClient, categoryIndependent) : void {
+    this.btnId = idIndependent;
+    let rateModal = this.modalCtrl.create(RatingPage, { idIndependent : idIndependent, idClient: idClient }, {enableBackdropDismiss: true});
+    rateModal.onDidDismiss(data => {
+      if(data){
+        let ratingList = [];
+        this.userProvider.createRating(data.rate, data.clientId , data.independentId);
+        this.ratingObs = this.db.list(`/rating/${data.independentId}`).valueChanges();
+        this.ratingObs.forEach(rateValue => {
+          rateValue.forEach(val => {
+            ratingList.push(val.rating)
+          });
+        });
+
+        let btn = document.getElementById(`${idIndependent}`);
+        btn.remove();
+
+        setTimeout(() :void => {
+          let ratingAvg : number;
+          let sum = 0;
+          for( var i = 0; i < ratingList.length; i++ ){
+              sum += parseInt( ratingList[i], 10 ); //don't forget to add the base
+          }
+          ratingAvg = Math.ceil(sum/ratingList.length);
+
+          this.userProvider.updateRating(categoryIndependent, idIndependent, ratingAvg)
+        },1000)
+      }
+
+    });
     rateModal.present();
   }
 

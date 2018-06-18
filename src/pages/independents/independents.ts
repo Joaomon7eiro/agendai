@@ -15,7 +15,7 @@ export class IndependentsPage {
 
   independents : Observable<Independent[]>;
   currentUserId : String
-
+  ratings : Observable<any[]>
   constructor(
     public db : AngularFireDatabase,
     public navCtrl: NavController,
@@ -29,15 +29,13 @@ export class IndependentsPage {
     this.userProvider.mapObjectKey<User>(this.userProvider.currentUser).first().subscribe((currentUser: User) => {
       this.currentUserId = currentUser.id;
     });
-
-
-
   }
 
   ionViewDidLoad() {
     console.log(this.currentUserId)
     this.independents = this.db.list<Independent>(`/independents/${this.category.id}`).valueChanges();
 
+    this.ratings = this.db.list(`/ratings`).valueChanges();
 
   }
 

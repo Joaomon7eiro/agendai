@@ -11,7 +11,9 @@ export class Schedule {
 
   constructor(
     public nameClient : string,
+    public idClient : string,
     public nameIndependent : string,
+    public categoryIndependent : string,
     public idIndependent : string,
     public telephoneIndependent : string,
     public addressIndependent : string,

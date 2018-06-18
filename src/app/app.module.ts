@@ -26,8 +26,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { HttpModule } from '@angular/http';
 import { Ionic2RatingModule } from 'ionic2-rating';
 
-
-
 const firebaseAppConfig : FirebaseAppConfig = {
   apiKey: "AIzaSyCf3ydJ5-NzgvNglfTL6Y1Hxxw7tKoMznU",
   authDomain: "app-agenda-4191b.firebaseapp.com",
